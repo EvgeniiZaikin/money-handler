@@ -1,1 +1,11 @@
-App for handle money
+Приложение для учёта личных финансов ^^
+
+Функционал:
+...
+
+Стек технологий:
+
+1. TypeScript
+2. React
+3. Redux
+4. ReduxSaga
