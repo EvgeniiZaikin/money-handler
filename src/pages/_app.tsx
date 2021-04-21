@@ -2,7 +2,10 @@ import { useEffect } from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 
+import { CssBaseline, Container } from '@material-ui/core';
+
 import { wrapper } from 'store';
+import { Header } from 'components/Header/Header';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -25,7 +28,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
-      <Component {...pageProps} />
+      <CssBaseline />
+      <Container disableGutters>
+        <Header />
+        <Component {...pageProps} />
+      </Container>
     </>
   );
 };
