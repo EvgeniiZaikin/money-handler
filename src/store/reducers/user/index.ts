@@ -1,9 +1,7 @@
 import { Reducer, AnyAction } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
 
-interface IAuthState {
-  isAuth: boolean;
-}
+import { IAuthState } from 'store/reducers/user/types';
 
 const initialState: IAuthState = {
   isAuth: false,
