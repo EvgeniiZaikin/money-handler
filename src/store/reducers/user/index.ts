@@ -17,6 +17,9 @@ const userSlice = createSlice({
     login: (state: IAuthState) => {
       state.isAuth = true;
     },
+    logout: (state: IAuthState) => {
+      state.isAuth = false;
+    },
   },
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
@@ -30,5 +33,5 @@ const userSlice = createSlice({
 
 const { actions, reducer } = userSlice;
 
-export const { login } = actions;
+export const { login, logout } = actions;
 export default reducer;
