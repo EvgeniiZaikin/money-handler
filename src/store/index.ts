@@ -3,11 +3,12 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import reducers from 'store/reducers';
 import { TReducersState } from 'utils/types';
+import { isDevelop } from 'utils/functions';
 
 const makeStore: MakeStore<TReducersState> = () =>
   configureStore({
     reducer: reducers,
-    devTools: process.env.NODE_ENV !== 'production',
+    devTools: isDevelop(),
   });
 
-export const wrapper = createWrapper<TReducersState>(makeStore, { debug: true });
+export const wrapper = createWrapper<TReducersState>(makeStore, { debug: isDevelop() });
