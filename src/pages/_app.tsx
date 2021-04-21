@@ -5,7 +5,7 @@ import { AppProps } from 'next/app';
 import { CssBaseline, Container } from '@material-ui/core';
 
 import { wrapper } from 'store';
-import { Header } from 'components/Header/Header';
+import { AppLayout } from 'components/AppLayout';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -29,10 +29,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
 
       <CssBaseline />
-      <Container disableGutters>
-        <Header />
+      <AppLayout>
         <Component {...pageProps} />
-      </Container>
+      </AppLayout>
     </>
   );
 };
