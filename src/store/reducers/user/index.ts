@@ -1,19 +1,34 @@
-import { Reducer, AnyAction } from 'redux';
+import { createSlice, createAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
 import { IAuthState } from 'store/reducers/user/types';
+import { TReducersState } from 'utils/types';
 
 const initialState: IAuthState = {
   isAuth: false,
 };
 
-const user: Reducer<IAuthState, AnyAction> = (state = initialState, action) => {
-  switch (action.type) {
-    case HYDRATE:
-      return { ...action.payload.user };
-    default:
-      return state;
-  }
-};
+const hydrate = createAction<TReducersState>(HYDRATE);
 
-export default user;
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    login: (state: IAuthState) => {
+      state.isAuth = true;
+    },
+  },
+  extraReducers(builder) {
+    builder.addCase(hydrate, (state, action) => {
+      return {
+        ...state,
+        ...action.payload.user,
+      };
+    });
+  },
+});
+
+const { actions, reducer } = userSlice;
+
+export const { login } = actions;
+export default reducer;
