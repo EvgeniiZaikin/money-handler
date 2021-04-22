@@ -1,31 +1,28 @@
 import { createSlice, createAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
-import { IUserState, TAuthReducers } from 'store/reducers/user/types';
+import { IAuthState, TAuthReducers } from 'store/reducers/auth/types';
 import { TReducersState } from 'utils/types';
 
-const initialState: IUserState = {
-  isAuth: false,
+const initialState: IAuthState = {
+  code: '',
 };
 
 const hydrate = createAction<TReducersState>(HYDRATE);
 
-const userSlice = createSlice<IUserState, TAuthReducers>({
-  name: 'user',
+const userSlice = createSlice<IAuthState, TAuthReducers>({
+  name: 'auth',
   initialState,
   reducers: {
-    login: (state) => {
-      state.isAuth = true;
-    },
-    logout: (state) => {
-      state.isAuth = false;
+    setAuthCode: (state, { payload }) => {
+      state.code += payload;
     },
   },
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
         ...state,
-        ...action.payload.user,
+        ...action.payload.auth,
       };
     });
   },
@@ -33,5 +30,5 @@ const userSlice = createSlice<IUserState, TAuthReducers>({
 
 const { actions, reducer } = userSlice;
 
-export const { login, logout } = actions;
+export const { setAuthCode } = actions;
 export default reducer;
