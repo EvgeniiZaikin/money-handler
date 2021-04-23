@@ -10,7 +10,7 @@ const initialState: IAuthState = {
 
 const hydrate = createAction<TReducersState>(HYDRATE);
 
-const userSlice = createSlice<IAuthState, TAuthReducers>({
+const authSlice = createSlice<IAuthState, TAuthReducers>({
   name: 'auth',
   initialState,
   reducers: {
@@ -31,7 +31,7 @@ const userSlice = createSlice<IAuthState, TAuthReducers>({
   },
 });
 
-const { actions, reducer } = userSlice;
+const { actions, reducer } = authSlice;
 
 export const { setAuthCode, resetAuthCode } = actions;
 export default reducer;

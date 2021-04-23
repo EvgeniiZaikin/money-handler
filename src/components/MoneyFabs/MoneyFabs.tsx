@@ -1,4 +1,5 @@
 import { FC, MouseEvent } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Box, Fab, Grid } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
@@ -10,13 +11,18 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 
+import { setTypeEditMoneyDialog, showEditMoneyDialog } from 'store/reducers/money';
+
 import { useStyles } from './MoneyFabs.styles';
 
 const MoneyFabs: FC = () => {
   const { container, income } = useStyles();
 
+  const dispatch = useDispatch();
+
   const handleAddMoneyControl = (event: MouseEvent<HTMLElement>) => {
-    console.log(event.currentTarget.dataset.fab);
+    dispatch(setTypeEditMoneyDialog(event.currentTarget.dataset.fab));
+    dispatch(showEditMoneyDialog());
   };
 
   return (
@@ -72,7 +78,7 @@ const MoneyFabs: FC = () => {
             </Fab>
           </Grid>
           <Grid item xs={4}>
-            <Fab data-fab="more" color="primary" onClick={handleAddMoneyControl}>
+            <Fab data-fab="other" color="primary" onClick={handleAddMoneyControl}>
               ...
             </Fab>
           </Grid>
