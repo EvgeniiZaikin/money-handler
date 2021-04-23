@@ -4,20 +4,28 @@ import uniqid from 'uniqid';
 
 import { Box, Fab, Grid } from '@material-ui/core';
 
-import { setAuthCode } from 'store/reducers/auth';
+import { setAuthCode, resetAuthCode } from 'store/reducers/auth';
 import { getAuthCode } from 'store/reducers/auth/selectors';
+
 import { useStyles } from './AuthFabs.styles';
 
 const AuthFabs: FC = () => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
+  const { container } = useStyles();
 
+  const dispatch = useDispatch();
   const authCode = useSelector(getAuthCode);
+
   useEffect(() => {
     if (authCode.length >= 4) {
-      alert('Процедура авторизации');
+      if (process.env.AUTH_CODE === authCode) {
+        alert('Успешно авторизировались!');
+      } else {
+        alert('Авторизация не удалась');
+      }
+
+      dispatch(resetAuthCode());
     }
-  }, [authCode]);
+  }, [authCode, dispatch]);
 
   const handleSetCode = (event: MouseEvent<HTMLElement>) => {
     const digit: string = event.currentTarget.textContent;
@@ -25,8 +33,8 @@ const AuthFabs: FC = () => {
   };
 
   return (
-    <>
-      <Box className={classes.block}>
+    <Box className={container}>
+      <Box textAlign="center" marginBottom="2rem">
         <Grid container>
           {[1, 2, 3].map((item: number) => (
             <Grid key={uniqid()} item xs={4}>
@@ -37,7 +45,7 @@ const AuthFabs: FC = () => {
           ))}
         </Grid>
       </Box>
-      <Box className={classes.block}>
+      <Box textAlign="center" marginBottom="2rem">
         <Grid container>
           {[4, 5, 6].map((item: number) => (
             <Grid key={uniqid()} item xs={4}>
@@ -48,7 +56,7 @@ const AuthFabs: FC = () => {
           ))}
         </Grid>
       </Box>
-      <Box className={classes.block}>
+      <Box textAlign="center" marginBottom="2rem">
         <Grid container>
           {[7, 8, 9].map((item: number) => (
             <Grid key={uniqid()} item xs={4}>
@@ -59,12 +67,12 @@ const AuthFabs: FC = () => {
           ))}
         </Grid>
       </Box>
-      <Box className={classes.block}>
+      <Box textAlign="center">
         <Fab color="primary" onClick={handleSetCode}>
           0
         </Fab>
       </Box>
-    </>
+    </Box>
   );
 };
 

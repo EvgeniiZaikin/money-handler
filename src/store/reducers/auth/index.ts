@@ -17,6 +17,9 @@ const userSlice = createSlice<IAuthState, TAuthReducers>({
     setAuthCode: (state, { payload }) => {
       state.code += payload;
     },
+    resetAuthCode: (state) => {
+      state.code = '';
+    },
   },
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
@@ -30,5 +33,5 @@ const userSlice = createSlice<IAuthState, TAuthReducers>({
 
 const { actions, reducer } = userSlice;
 
-export const { setAuthCode } = actions;
+export const { setAuthCode, resetAuthCode } = actions;
 export default reducer;

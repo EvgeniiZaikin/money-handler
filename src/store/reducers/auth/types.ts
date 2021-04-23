@@ -6,4 +6,5 @@ export interface IAuthState {
 
 export type TAuthReducers = {
   setAuthCode: CaseReducer<IAuthState, PayloadAction<string>>;
+  resetAuthCode: CaseReducer<IAuthState>;
 };
