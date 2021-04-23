@@ -6,9 +6,6 @@ const useStyles = makeStyles(
       footer: {
         backgroundColor: palette.background.default,
       },
-      item: {
-        color: `${palette.grey[600]} !important`,
-      },
     }),
   { name: 'Footer' }
 );
