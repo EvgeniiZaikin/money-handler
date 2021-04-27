@@ -9,6 +9,7 @@ const useStyles = makeStyles(
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        padding: '2rem 1rem',
       },
     }),
   { name: 'StatisticList' }

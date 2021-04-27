@@ -11,8 +11,12 @@ const StatisticList: FC = () => {
 
   return (
     <Box className={classes.container}>
-      <StatisticCard />
-      <StatisticCard />
+      <Box marginBottom="2rem">
+        <StatisticCard />
+      </Box>
+      <Box marginBottom="2rem">
+        <StatisticCard />
+      </Box>
       <StatisticCard />
     </Box>
   );

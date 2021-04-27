@@ -4,7 +4,7 @@ const useStyles = makeStyles(
   () =>
     createStyles({
       content: {
-        height: 'calc(100vh - 112px)',
+        minHeight: 'calc(100vh - 112px)',
       },
     }),
   { name: 'AppLayout' }
