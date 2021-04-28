@@ -25,9 +25,9 @@ const EditMoneyDialog: FC = () => {
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">{editMoneyTypes[type]?.type}</DialogTitle>
+      <DialogTitle id="form-dialog-title">{editMoneyTypes[type]?.label}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{editMoneyTypes[type]?.label}</DialogContentText>
+        <DialogContentText>{editMoneyTypes[type]?.type}</DialogContentText>
         <TextField
           autoFocus
           margin="dense"

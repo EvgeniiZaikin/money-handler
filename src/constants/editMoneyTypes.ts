@@ -35,6 +35,18 @@ const editMoneyTypes: { [key: string]: { type: string; label: string } } = {
     type: 'Расходы',
     label: 'Расходы на другие цели, не попадающие ни под одну из категорий',
   },
+  credit: {
+    type: 'Расходы',
+    label: 'Уплата кредита',
+  },
+  gift: {
+    type: 'Доходы',
+    label: 'Получение подарков',
+  },
+  housekeeping: {
+    type: 'Расходы',
+    label: 'Расходы на бытовые нужды',
+  },
 };
 
 export { editMoneyTypes };

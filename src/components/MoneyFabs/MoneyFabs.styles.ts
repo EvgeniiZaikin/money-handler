@@ -4,7 +4,7 @@ const useStyles = makeStyles(
   ({ palette }) =>
     createStyles({
       container: {
-        height: '100%',
+        minHeight: 'calc(100vh - 120px)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

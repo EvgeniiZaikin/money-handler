@@ -10,6 +10,9 @@ import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
+import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 
 import { setTypeEditMoneyDialog, showEditMoneyDialog } from 'store/reducers/money';
 
@@ -54,8 +57,8 @@ const MoneyFabs: FC = () => {
             </Fab>
           </Grid>
           <Grid item xs={4}>
-            <Fab data-fab="salary" className={income} color="primary" onClick={handleAddMoneyControl}>
-              <AttachMoneyIcon />
+            <Fab data-fab="housekeeping" color="primary" onClick={handleAddMoneyControl}>
+              <PersonalVideoIcon />
             </Fab>
           </Grid>
           <Grid item xs={4}>
@@ -78,8 +81,27 @@ const MoneyFabs: FC = () => {
             </Fab>
           </Grid>
           <Grid item xs={4}>
+            <Fab data-fab="credit" color="primary" onClick={handleAddMoneyControl}>
+              <CreditCardIcon />
+            </Fab>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box textAlign="center" marginBottom="2rem">
+        <Grid container>
+          <Grid item xs={4}>
+            <Fab data-fab="gift" className={income} color="primary" onClick={handleAddMoneyControl}>
+              <CardGiftcardIcon />
+            </Fab>
+          </Grid>
+          <Grid item xs={4}>
             <Fab data-fab="other" color="primary" onClick={handleAddMoneyControl}>
               ...
+            </Fab>
+          </Grid>
+          <Grid item xs={4}>
+            <Fab data-fab="salary" className={income} color="primary" onClick={handleAddMoneyControl}>
+              <AttachMoneyIcon />
             </Fab>
           </Grid>
         </Grid>
