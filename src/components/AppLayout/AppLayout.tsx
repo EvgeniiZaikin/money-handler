@@ -8,10 +8,10 @@ import { Footer } from 'components/Footer';
 import { useStyles } from './AppLayout.styles';
 
 const AppLayout: FC<PropsWithChildren<{}>> = ({ children }) => {
-  const { content } = useStyles();
+  const { container, content } = useStyles();
 
   return (
-    <Container disableGutters>
+    <Container disableGutters className={container}>
       <Header />
       <Box className={content}>{children}</Box>
       <Footer />

@@ -1,14 +1,13 @@
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(
-  ({ palette }) =>
+  () =>
     createStyles({
-      footer: {
+      header: {
         flex: '0 0 auto',
-        backgroundColor: palette.background.default,
       },
     }),
-  { name: 'Footer' }
+  { name: 'Header' }
 );
 
 export { useStyles };

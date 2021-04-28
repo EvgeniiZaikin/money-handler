@@ -10,7 +10,7 @@ import { getAuthCode } from 'store/reducers/auth/selectors';
 import { useStyles } from './AuthFabs.styles';
 
 const AuthFabs: FC = () => {
-  const { block, container } = useStyles();
+  const { container } = useStyles();
 
   const dispatch = useDispatch();
   const authCode = useSelector(getAuthCode);
@@ -33,46 +33,44 @@ const AuthFabs: FC = () => {
   };
 
   return (
-    <Box className={block}>
-      <Box className={container}>
-        <Box textAlign="center" marginBottom="2rem">
-          <Grid container>
-            {[1, 2, 3].map((item: number) => (
-              <Grid key={uniqid()} item xs={4}>
-                <Fab color="primary" onClick={handleSetCode}>
-                  {item}
-                </Fab>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-        <Box textAlign="center" marginBottom="2rem">
-          <Grid container>
-            {[4, 5, 6].map((item: number) => (
-              <Grid key={uniqid()} item xs={4}>
-                <Fab color="primary" onClick={handleSetCode}>
-                  {item}
-                </Fab>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-        <Box textAlign="center" marginBottom="2rem">
-          <Grid container>
-            {[7, 8, 9].map((item: number) => (
-              <Grid key={uniqid()} item xs={4}>
-                <Fab color="primary" onClick={handleSetCode}>
-                  {item}
-                </Fab>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-        <Box textAlign="center">
-          <Fab color="primary" onClick={handleSetCode}>
-            0
-          </Fab>
-        </Box>
+    <Box className={container}>
+      <Box textAlign="center" marginBottom="2rem">
+        <Grid container>
+          {[1, 2, 3].map((item: number) => (
+            <Grid key={uniqid()} item xs={4}>
+              <Fab color="primary" onClick={handleSetCode}>
+                {item}
+              </Fab>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Box textAlign="center" marginBottom="2rem">
+        <Grid container>
+          {[4, 5, 6].map((item: number) => (
+            <Grid key={uniqid()} item xs={4}>
+              <Fab color="primary" onClick={handleSetCode}>
+                {item}
+              </Fab>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Box textAlign="center" marginBottom="2rem">
+        <Grid container>
+          {[7, 8, 9].map((item: number) => (
+            <Grid key={uniqid()} item xs={4}>
+              <Fab color="primary" onClick={handleSetCode}>
+                {item}
+              </Fab>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Box textAlign="center">
+        <Fab color="primary" onClick={handleSetCode}>
+          0
+        </Fab>
       </Box>
     </Box>
   );

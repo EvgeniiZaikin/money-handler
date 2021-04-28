@@ -16,7 +16,7 @@ import { setTypeEditMoneyDialog, showEditMoneyDialog } from 'store/reducers/mone
 import { useStyles } from './MoneyFabs.styles';
 
 const MoneyFabs: FC = () => {
-  const { block, container, income } = useStyles();
+  const { container, income } = useStyles();
 
   const dispatch = useDispatch();
 
@@ -26,65 +26,63 @@ const MoneyFabs: FC = () => {
   };
 
   return (
-    <Box className={block}>
-      <Box className={container}>
-        <Box textAlign="center" marginBottom="2rem">
-          <Grid container>
-            <Grid item xs={4}>
-              <Fab data-fab="home" color="primary" onClick={handleAddMoneyControl}>
-                <HomeIcon />
-              </Fab>
-            </Grid>
-            <Grid item xs={4}>
-              <Fab data-fab="food" color="primary" onClick={handleAddMoneyControl}>
-                <RestaurantIcon />
-              </Fab>
-            </Grid>
-            <Grid item xs={4}>
-              <Fab data-fab="wife" color="primary" onClick={handleAddMoneyControl}>
-                <FavoriteIcon />
-              </Fab>
-            </Grid>
+    <Box className={container}>
+      <Box textAlign="center" marginBottom="2rem">
+        <Grid container>
+          <Grid item xs={4}>
+            <Fab data-fab="home" color="primary" onClick={handleAddMoneyControl}>
+              <HomeIcon />
+            </Fab>
           </Grid>
-        </Box>
-        <Box textAlign="center" marginBottom="2rem">
-          <Grid container>
-            <Grid item xs={4}>
-              <Fab data-fab="medicine" color="primary" onClick={handleAddMoneyControl}>
-                <EnhancedEncryptionIcon />
-              </Fab>
-            </Grid>
-            <Grid item xs={4}>
-              <Fab data-fab="salary" className={income} color="primary" onClick={handleAddMoneyControl}>
-                <AttachMoneyIcon />
-              </Fab>
-            </Grid>
-            <Grid item xs={4}>
-              <Fab data-fab="child" color="primary" onClick={handleAddMoneyControl}>
-                <EmojiEmotionsIcon />
-              </Fab>
-            </Grid>
+          <Grid item xs={4}>
+            <Fab data-fab="food" color="primary" onClick={handleAddMoneyControl}>
+              <RestaurantIcon />
+            </Fab>
           </Grid>
-        </Box>
-        <Box textAlign="center" marginBottom="2rem">
-          <Grid container>
-            <Grid item xs={4}>
-              <Fab data-fab="car" color="primary" onClick={handleAddMoneyControl}>
-                <DirectionsCarIcon />
-              </Fab>
-            </Grid>
-            <Grid item xs={4}>
-              <Fab data-fab="pleasure" color="primary" onClick={handleAddMoneyControl}>
-                <SportsEsportsIcon />
-              </Fab>
-            </Grid>
-            <Grid item xs={4}>
-              <Fab data-fab="other" color="primary" onClick={handleAddMoneyControl}>
-                ...
-              </Fab>
-            </Grid>
+          <Grid item xs={4}>
+            <Fab data-fab="wife" color="primary" onClick={handleAddMoneyControl}>
+              <FavoriteIcon />
+            </Fab>
           </Grid>
-        </Box>
+        </Grid>
+      </Box>
+      <Box textAlign="center" marginBottom="2rem">
+        <Grid container>
+          <Grid item xs={4}>
+            <Fab data-fab="medicine" color="primary" onClick={handleAddMoneyControl}>
+              <EnhancedEncryptionIcon />
+            </Fab>
+          </Grid>
+          <Grid item xs={4}>
+            <Fab data-fab="salary" className={income} color="primary" onClick={handleAddMoneyControl}>
+              <AttachMoneyIcon />
+            </Fab>
+          </Grid>
+          <Grid item xs={4}>
+            <Fab data-fab="child" color="primary" onClick={handleAddMoneyControl}>
+              <EmojiEmotionsIcon />
+            </Fab>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box textAlign="center" marginBottom="2rem">
+        <Grid container>
+          <Grid item xs={4}>
+            <Fab data-fab="car" color="primary" onClick={handleAddMoneyControl}>
+              <DirectionsCarIcon />
+            </Fab>
+          </Grid>
+          <Grid item xs={4}>
+            <Fab data-fab="pleasure" color="primary" onClick={handleAddMoneyControl}>
+              <SportsEsportsIcon />
+            </Fab>
+          </Grid>
+          <Grid item xs={4}>
+            <Fab data-fab="other" color="primary" onClick={handleAddMoneyControl}>
+              ...
+            </Fab>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   );
