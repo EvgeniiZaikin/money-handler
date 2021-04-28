@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { NextPage } from 'next';
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 
 import { getIsAuth } from 'store/reducers/user/selectors';
 import { login } from 'store/reducers/user';
 import { AuthFabs } from 'components/AuthFabs';
+import { TReducersState } from 'utils/types';
+import { setSelectedItemIndex } from 'store/reducers/footer';
 
 const IndexPage: NextPage = () => {
   const isAuth: boolean = useSelector(getIsAuth);
@@ -28,4 +30,10 @@ const IndexPage: NextPage = () => {
   );
 };
 
-export default IndexPage;
+IndexPage.getInitialProps = async ({ store }: NextPageContext<TReducersState>) => {
+  store.dispatch(setSelectedItemIndex(null));
+
+  return {};
+};
+
+export default connect()(IndexPage);

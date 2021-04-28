@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import Head from 'next/head';
-import { AppProps } from 'next/app';
+import { AppContext, AppProps } from 'next/app';
 
 import { CssBaseline } from '@material-ui/core';
 
@@ -36,6 +36,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <EditMoneyDialog />
     </>
   );
+};
+
+MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
+  return {
+    pageProps: {
+      ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+      pathname: ctx.pathname,
+    },
+  };
 };
 
 export default wrapper.withRedux(MyApp);

@@ -1,9 +1,12 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
+import { connect } from 'react-redux';
 
 import { MoneyFabs } from 'components/MoneyFabs';
+import { TReducersState } from 'utils/types';
+import { setSelectedItemIndex } from 'store/reducers/footer';
 
-const IndexPage: NextPage = () => {
+const ControlPage: NextPage = () => {
   return (
     <>
       <Head>
@@ -14,4 +17,10 @@ const IndexPage: NextPage = () => {
   );
 };
 
-export default IndexPage;
+ControlPage.getInitialProps = async ({ store }: NextPageContext<TReducersState>) => {
+  store.dispatch(setSelectedItemIndex(0));
+
+  return {};
+};
+
+export default connect()(ControlPage);

@@ -12,7 +12,7 @@ const initialState: IMoneyState = {
 const hydrate = createAction<TReducersState>(HYDRATE);
 
 const moneySlice = createSlice<IMoneyState, TMoneyReducers>({
-  name: 'auth',
+  name: 'money',
   initialState,
   reducers: {
     showEditMoneyDialog: (state) => {

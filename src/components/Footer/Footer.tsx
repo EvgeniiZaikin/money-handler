@@ -1,35 +1,27 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { withRouter } from 'next/router';
 
 import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
-import PersonIcon from '@material-ui/icons/Person';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import AddIcon from '@material-ui/icons/Add';
+import TimelineIcon from '@material-ui/icons/Timeline';
 
-import { getIsAuth } from 'store/reducers/user/selectors';
-
+import { getSelectedFooterIndex } from 'store/reducers/footer/selectors';
+import { IFooterProps } from './types';
 import { useStyles } from './Footer.styles';
 
-const Footer: FC = () => {
-  const [value, setValue] = useState(0);
+const Footer: FC<IFooterProps> = ({ router }) => {
   const { footer } = useStyles();
-
-  const userIsAuth: boolean = useSelector(getIsAuth);
+  const selectedItem = useSelector(getSelectedFooterIndex);
 
   return (
-    <BottomNavigation
-      value={value}
-      onChange={(event, newValue) => {
-        setValue(newValue);
-      }}
-      showLabels
-      className={footer}
-    >
-      <BottomNavigationAction label="демо" icon={<PersonIcon />} disabled={userIsAuth} />
-      <BottomNavigationAction label="контроль" icon={<AddIcon />} disabled={!userIsAuth} />
-      <BottomNavigationAction label="статистика" icon={<EqualizerIcon />} disabled={!userIsAuth} />
+    <BottomNavigation value={selectedItem} showLabels className={footer}>
+      <BottomNavigationAction label="контроль" icon={<AddIcon />} onClick={() => router.push('/control')} />
+      <BottomNavigationAction label="статистика" icon={<EqualizerIcon />} onClick={() => router.push('/statistic')} />
+      <BottomNavigationAction label="динамика" icon={<TimelineIcon />} onClick={() => router.push('/dynamic')} />
     </BottomNavigation>
   );
 };
 
-export { Footer };
+export default withRouter(Footer);
