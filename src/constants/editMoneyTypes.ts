@@ -1,50 +1,53 @@
+const income: string = 'Доходы';
+const expenses: string = 'Расходы';
+
 const editMoneyTypes: { [key: string]: { type: string; label: string } } = {
   home: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Домашние расходы: моммунальные платежи, интернет и т.д.',
   },
   food: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Расходы на питание',
   },
   wife: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Подарки любимой супруге',
   },
   medicine: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Расходы на лекарства, БАДы, обследования и т.д.',
   },
   salary: {
-    type: 'Доходы',
+    type: income,
     label: 'Получение заработной платы',
   },
   child: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Обязательные покупки для любимой дочки',
   },
   car: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Расходы на содержание автомобиля',
   },
   pleasure: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Траты на различного рода развлечения: кино, кафе, фастфуд, баня и т.д.',
   },
   other: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Расходы на другие цели, не попадающие ни под одну из категорий',
   },
   credit: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Уплата кредита',
   },
   gift: {
-    type: 'Доходы',
+    type: income,
     label: 'Получение подарков',
   },
   housekeeping: {
-    type: 'Расходы',
+    type: expenses,
     label: 'Расходы на бытовые нужды',
   },
 };
