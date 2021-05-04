@@ -1,11 +1,13 @@
 import { FC, MouseEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
+import Router from 'next/router';
 
 import { Box, Fab, Grid } from '@material-ui/core';
 
 import { setAuthCode, resetAuthCode } from 'store/reducers/auth';
 import { getAuthCode } from 'store/reducers/auth/selectors';
+import { login } from 'store/reducers/user';
 
 import { useStyles } from './AuthFabs.styles';
 
@@ -18,8 +20,10 @@ const AuthFabs: FC = () => {
   useEffect(() => {
     if (authCode.length >= 4) {
       if (process.env.AUTH_CODE === authCode) {
-        alert('Успешно авторизировались!');
+        dispatch(login());
+        Router.push('/control');
       } else {
+        dispatch(resetAuthCode());
         alert('Авторизация не удалась');
       }
 

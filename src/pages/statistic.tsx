@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { StatisticList } from 'components/StatisticList';
 import { TReducersState } from 'utils/types';
 import { setSelectedItemIndex } from 'store/reducers/footer';
+import { isBrowser } from 'utils/functions';
 
 const StatisticPage: NextPage = () => {
   return (
@@ -17,7 +18,12 @@ const StatisticPage: NextPage = () => {
   );
 };
 
-StatisticPage.getInitialProps = async ({ store }: NextPageContext<TReducersState>) => {
+StatisticPage.getInitialProps = async ({ res, store }: NextPageContext<TReducersState>) => {
+  if (!isBrowser() && !store.getState().user.isAuth) {
+    res.writeHead(302, { Location: '/' });
+    res.end();
+  }
+
   store.dispatch(setSelectedItemIndex(1));
 
   return {};

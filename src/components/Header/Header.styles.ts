@@ -6,6 +6,9 @@ const useStyles = makeStyles(
       header: {
         flex: '0 0 auto',
       },
+      title: {
+        flexGrow: 1,
+      },
     }),
   { name: 'Header' }
 );

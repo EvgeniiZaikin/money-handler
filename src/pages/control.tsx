@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { MoneyFabs } from 'components/MoneyFabs';
 import { TReducersState } from 'utils/types';
 import { setSelectedItemIndex } from 'store/reducers/footer';
+import { isBrowser } from 'utils/functions';
 
 const ControlPage: NextPage = () => {
   return (
@@ -17,7 +18,12 @@ const ControlPage: NextPage = () => {
   );
 };
 
-ControlPage.getInitialProps = async ({ store }: NextPageContext<TReducersState>) => {
+ControlPage.getInitialProps = async ({ res, store }: NextPageContext<TReducersState>) => {
+  if (!isBrowser() && !store.getState().user.isAuth) {
+    res.writeHead(302, { Location: '/' });
+    res.end();
+  }
+
   store.dispatch(setSelectedItemIndex(0));
 
   return {};

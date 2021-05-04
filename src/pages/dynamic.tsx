@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 
 import { setSelectedItemIndex } from 'store/reducers/footer';
+import { isBrowser } from 'utils/functions';
 import { TReducersState } from 'utils/types';
 
 const DynamicPage: NextPage = () => {
@@ -16,7 +17,12 @@ const DynamicPage: NextPage = () => {
   );
 };
 
-DynamicPage.getInitialProps = async ({ store }: NextPageContext<TReducersState>) => {
+DynamicPage.getInitialProps = async ({ res, store }: NextPageContext<TReducersState>) => {
+  if (!isBrowser() && !store.getState().user.isAuth) {
+    res.writeHead(302, { Location: '/' });
+    res.end();
+  }
+
   store.dispatch(setSelectedItemIndex(2));
 
   return {};
