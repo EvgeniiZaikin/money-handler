@@ -4,24 +4,33 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 
 import { MoneyFabs } from 'components/MoneyFabs';
-import { TReducersState } from 'utils/types';
+import { TCategories, TFirebaseCategory, TFirebaseDocument, TFirebaseType, TReducersState } from 'utils/types';
 import { setSelectedItemIndex } from 'store/reducers/footer';
-import { isBrowser } from 'utils/functions';
+import { firebaseConverter, isBrowser } from 'utils/functions';
 import { db } from 'database/firebase';
 
 const ControlPage: NextPage = () => {
   useEffect(() => {
-    const unsub = db.collection('categories').onSnapshot((snapshot) => {
-      const allBooks = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      console.log(allBooks);
-    });
-    return () => {
-      console.log('cleanup');
-      unsub();
-    };
+    async function showCategories() {
+      const result: TCategories = [];
+
+      const unsub = db.collection('categories').withConverter(firebaseConverter<TFirebaseCategory>());
+      const { docs } = await unsub.get();
+      for await (const doc of docs) {
+        const { id } = doc;
+        const { label, type } = doc.data();
+
+        const categoryType: TFirebaseDocument<TFirebaseType> = await type
+          .withConverter(firebaseConverter<TFirebaseType>())
+          .get();
+
+        result.push({ id, label, type: categoryType.data().label });
+      }
+
+      console.log(result);
+    }
+
+    showCategories();
   }, []);
 
   return (
