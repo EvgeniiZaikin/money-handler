@@ -1,4 +1,4 @@
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Box, Fab, Grid } from '@material-ui/core';
@@ -15,6 +15,7 @@ import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
 
 import { setTypeEditMoneyDialog, showEditMoneyDialog } from 'store/reducers/money';
+import { getCategories } from 'store/reducers/control';
 
 import { useStyles } from './MoneyFabs.styles';
 
@@ -22,6 +23,10 @@ const MoneyFabs: FC = () => {
   const { container, income } = useStyles();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
 
   const handleAddMoneyControl = (event: MouseEvent<HTMLElement>) => {
     dispatch(setTypeEditMoneyDialog(event.currentTarget.dataset.fab));
