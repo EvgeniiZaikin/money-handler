@@ -10,8 +10,8 @@ const initialState: IControlState = {
 
 const hydrate = createAction<TReducersState>(HYDRATE);
 
-const authSlice = createSlice<IControlState, TControlReducers>({
-  name: 'auth',
+const controlSlice = createSlice<IControlState, TControlReducers>({
+  name: 'control',
   initialState,
   reducers: {
     getCategories: () => {},
@@ -29,7 +29,7 @@ const authSlice = createSlice<IControlState, TControlReducers>({
   },
 });
 
-const { actions, reducer } = authSlice;
+const { actions, reducer } = controlSlice;
 
 export const { getCategories, setCategories } = actions;
 export default reducer;

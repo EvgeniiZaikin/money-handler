@@ -7,6 +7,7 @@ import { CssBaseline } from '@material-ui/core';
 import { wrapper } from 'store';
 import { AppLayout } from 'components/AppLayout';
 import { EditMoneyDialog } from 'components/EditMoneyDialog';
+import { Backdrop } from 'components/Backdrop';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -34,6 +35,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Component {...pageProps} />
       </AppLayout>
       <EditMoneyDialog />
+      <Backdrop />
     </>
   );
 };

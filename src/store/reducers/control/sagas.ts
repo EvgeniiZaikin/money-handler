@@ -1,11 +1,13 @@
-import { all, delay, put, takeEvery } from 'redux-saga/effects';
+import { all, put, takeEvery } from 'redux-saga/effects';
 
 import { db } from 'database/firebase';
 import { getCategories, setCategories } from 'store/reducers/control';
+import { showBackdrop, hideBackdrop } from 'store/reducers/backdrop';
 import { firebaseConverter } from 'utils/functions';
 import { TCategory, TFirebaseCategory, TFirebaseDocument, TFirebaseType } from 'utils/types';
 
 function* getCategoriesSaga() {
+  yield put(showBackdrop());
   const result: TCategory[] = [];
 
   const unsub = db.collection('categories').withConverter(firebaseConverter<TFirebaseCategory>());
@@ -23,6 +25,7 @@ function* getCategoriesSaga() {
 
   yield put(setCategories(result));
   console.log('SAGA RESULT', result);
+  yield put(hideBackdrop());
 }
 
 function* onGetCategoriesSagaSaga() {
