@@ -8,6 +8,8 @@ import { Box, Fab, Grid } from '@material-ui/core';
 import { setAuthCode, resetAuthCode } from 'store/reducers/auth';
 import { getAuthCode } from 'store/reducers/auth/selectors';
 import { login } from 'store/reducers/user';
+import { showSnackbar } from 'store/reducers/snackbar';
+import { TSnackbar } from 'store/reducers/snackbar/types';
 
 import { useStyles } from './AuthFabs.styles';
 
@@ -24,10 +26,8 @@ const AuthFabs: FC = () => {
         Router.push('/control');
       } else {
         dispatch(resetAuthCode());
-        alert('Авторизация не удалась');
+        dispatch(showSnackbar({ message: 'Код введён не верно', type: TSnackbar.ERROR }));
       }
-
-      dispatch(resetAuthCode());
     }
   }, [authCode, dispatch]);
 
