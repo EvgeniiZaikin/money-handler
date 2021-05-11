@@ -8,6 +8,7 @@ import { wrapper } from 'store';
 import { AppLayout } from 'components/AppLayout';
 import { EditMoneyDialog } from 'components/EditMoneyDialog';
 import { Backdrop } from 'components/Backdrop';
+import { Snackbar } from 'components/Snackbar';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -36,6 +37,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </AppLayout>
       <EditMoneyDialog />
       <Backdrop />
+      <Snackbar />
     </>
   );
 };

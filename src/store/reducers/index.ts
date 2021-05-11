@@ -5,6 +5,7 @@ import control from 'store/reducers/control';
 import user from 'store/reducers/user';
 import money from 'store/reducers/money';
 import footer from 'store/reducers/footer';
+import snackbar from 'store/reducers/snackbar';
 
 export default combineReducers({
   auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   user,
   money,
   footer,
+  snackbar,
 });
