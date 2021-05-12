@@ -4,8 +4,7 @@ import uniqid from 'uniqid';
 
 import { Box, ButtonBase, Grid, Typography } from '@material-ui/core';
 
-import { setTypeEditMoneyDialog, showEditMoneyDialog } from 'store/reducers/money';
-import { getCategories } from 'store/reducers/control';
+import { getCategories, setExpenseType, showEditDialog } from 'store/reducers/control';
 import { getCategories as getCategoriesList } from 'store/reducers/control/selectors';
 
 import { useStyles } from './MoneyFabs.styles';
@@ -22,8 +21,8 @@ const MoneyFabs: FC = () => {
   }, [dispatch]);
 
   const handleAddMoneyControl = (event: MouseEvent<HTMLElement>) => {
-    dispatch(setTypeEditMoneyDialog(event.currentTarget.dataset.fab));
-    dispatch(showEditMoneyDialog());
+    dispatch(setExpenseType(event.currentTarget.dataset.fab));
+    dispatch(showEditDialog());
   };
 
   return (

@@ -3,16 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 
-import { getIsShowEditMoneyDialog, getTypeEditMoneyDialog } from 'store/reducers/money/selectors';
-import { hideEditMoneyDialog } from 'store/reducers/money';
+import { getExpenseType, getIsShowingDialog } from 'store/reducers/control/selectors';
+import { hideEditDialog } from 'store/reducers/control';
 import { NumberFormatCustom } from './NumberFormat';
 
 const EditMoneyDialog: FC = () => {
-  const open: boolean = useSelector(getIsShowEditMoneyDialog);
-  const type: string = useSelector(getTypeEditMoneyDialog);
+  const open: boolean = useSelector(getIsShowingDialog);
+  const type: string = useSelector(getExpenseType);
 
   const dispatch = useDispatch();
-  const handleClose = () => dispatch(hideEditMoneyDialog());
+  const handleClose = () => dispatch(hideEditDialog());
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth>
