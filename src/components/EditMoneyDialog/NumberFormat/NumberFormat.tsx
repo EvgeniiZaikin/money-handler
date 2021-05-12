@@ -1,14 +1,21 @@
-import { InputBaseComponentProps } from '@material-ui/core';
 import { FC } from 'react';
-import NumberFormat from 'react-number-format';
+import { useDispatch } from 'react-redux';
+import NumberFormat, { NumberFormatValues } from 'react-number-format';
+
+import { InputBaseComponentProps } from '@material-ui/core';
+
+import { setExpenseSum } from 'store/reducers/control';
 
 const NumberFormatCustom: FC<InputBaseComponentProps> = ({ inputRef, onChange, name, ...other }) => {
+  const dispatch = useDispatch();
+  const handleChange = (event: NumberFormatValues) => dispatch(setExpenseSum(event.floatValue));
+
   return (
     <NumberFormat
       {...other}
       defaultValue=""
       getInputRef={inputRef}
-      onValueChange={(event) => console.log(event)}
+      onValueChange={handleChange}
       thousandSeparator
       isNumericString
       suffix=" ₽"

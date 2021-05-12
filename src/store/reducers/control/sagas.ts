@@ -1,10 +1,13 @@
-import { all, put, takeEvery } from 'redux-saga/effects';
+import { all, put, select, takeEvery } from 'redux-saga/effects';
 
 import { db } from 'database/firebase';
-import { getCategories, setCategories } from 'store/reducers/control';
+import { addExpense, getCategories, hideEditDialog, resetExpenseData, setCategories } from 'store/reducers/control';
 import { showBackdrop, hideBackdrop } from 'store/reducers/backdrop';
 import { firebaseConverter } from 'utils/functions';
-import { TCategory, TFirebaseCategory } from 'utils/types';
+import { TCategory, TFirebaseCategory, TFirebaseExpense } from 'utils/types';
+import { getExpenseCategory, getExpenseSum } from 'store/reducers/control/selectors';
+import { showSnackbar } from 'store/reducers/snackbar';
+import { TSnackbar } from 'store/reducers/snackbar/types';
 
 function* getCategoriesSaga() {
   yield put(showBackdrop());
@@ -29,10 +32,37 @@ function* getCategoriesSaga() {
   yield put(hideBackdrop());
 }
 
+function* addExpenseSaga() {
+  const sum = yield select(getExpenseSum);
+  const category = yield select(getExpenseCategory);
+
+  if (sum > 0) {
+    yield put(showBackdrop());
+
+    const unsub = db.collection('expenses').withConverter(firebaseConverter<TFirebaseExpense>());
+    yield unsub.add({
+      sum,
+      datetime: new Date(),
+      category: db.doc(`categories/${category}`),
+    });
+
+    yield put(hideEditDialog());
+    yield put(resetExpenseData());
+    yield put(hideBackdrop());
+  } else {
+    const message = sum < 0 ? 'Сумма не может быть отрицательной' : 'Сумма не может быть нулём';
+    yield put(showSnackbar({ message, type: TSnackbar.ERROR }));
+  }
+}
+
 function* onGetCategoriesSagaSaga() {
   yield takeEvery(getCategories.toString(), getCategoriesSaga);
 }
 
+function* onAddExpenseSaga() {
+  yield takeEvery(addExpense.toString(), addExpenseSaga);
+}
+
 export function* controlSagas() {
-  yield all([onGetCategoriesSagaSaga()]);
+  yield all([onGetCategoriesSagaSaga(), onAddExpenseSaga()]);
 }

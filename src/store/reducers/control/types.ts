@@ -6,6 +6,8 @@ export interface IControlState {
   categories: TCategory[];
   showDialog: boolean;
   expenseType: string;
+  expenseSum: number;
+  expenseCategory: string;
 }
 
 export type TControlReducers = {
@@ -14,5 +16,8 @@ export type TControlReducers = {
   showEditDialog: CaseReducer<IControlState>;
   hideEditDialog: CaseReducer<IControlState>;
   setExpenseType: CaseReducer<IControlState, PayloadAction<string>>;
-  resetExpenseType: CaseReducer<IControlState>;
+  addExpense: CaseReducer<IControlState>;
+  setExpenseSum: CaseReducer<IControlState, PayloadAction<number>>;
+  setExpenseCategory: CaseReducer<IControlState, PayloadAction<string>>;
+  resetExpenseData: CaseReducer<IControlState>;
 };

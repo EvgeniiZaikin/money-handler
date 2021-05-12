@@ -18,6 +18,11 @@ export type TFirebaseCategory = {
   label: string;
   // type: TFirebaseDocumentReference;
 };
+export type TFirebaseExpense = {
+  sum: number;
+  datetime: Date;
+  category: TFirebaseDocumentReference;
+};
 
 export type TCategory = {
   id: string;

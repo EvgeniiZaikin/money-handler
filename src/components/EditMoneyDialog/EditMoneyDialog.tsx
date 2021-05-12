@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@material-ui/core';
 
 import { getExpenseType, getIsShowingDialog } from 'store/reducers/control/selectors';
-import { hideEditDialog } from 'store/reducers/control';
+import { addExpense, hideEditDialog } from 'store/reducers/control';
 import { NumberFormatCustom } from './NumberFormat';
 
 const EditMoneyDialog: FC = () => {
@@ -13,6 +13,7 @@ const EditMoneyDialog: FC = () => {
 
   const dispatch = useDispatch();
   const handleClose = () => dispatch(hideEditDialog());
+  const handleAdd = () => dispatch(addExpense());
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth>
@@ -32,7 +33,7 @@ const EditMoneyDialog: FC = () => {
         <Button onClick={handleClose} color="primary">
           Отменить
         </Button>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={handleAdd} color="primary">
           Добавить
         </Button>
       </DialogActions>

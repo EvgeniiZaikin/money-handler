@@ -8,6 +8,8 @@ const initialState: IControlState = {
   categories: [],
   showDialog: false,
   expenseType: '',
+  expenseSum: 0,
+  expenseCategory: '',
 };
 
 const hydrate = createAction<TReducersState>(HYDRATE);
@@ -29,8 +31,17 @@ const controlSlice = createSlice<IControlState, TControlReducers>({
     setExpenseType: (state, { payload }) => {
       state.expenseType = payload;
     },
-    resetExpenseType: (state) => {
+    addExpense: () => {},
+    setExpenseSum: (state, { payload }) => {
+      state.expenseSum = payload;
+    },
+    setExpenseCategory: (state, { payload }) => {
+      state.expenseCategory = payload;
+    },
+    resetExpenseData: (state) => {
       state.expenseType = '';
+      state.expenseSum = 0;
+      state.expenseCategory = '';
     },
   },
   extraReducers(builder) {
@@ -46,11 +57,14 @@ const controlSlice = createSlice<IControlState, TControlReducers>({
 const { actions, reducer } = controlSlice;
 
 export const {
+  addExpense,
   getCategories,
   setCategories,
   showEditDialog,
   hideEditDialog,
+  setExpenseCategory,
   setExpenseType,
-  resetExpenseType,
+  setExpenseSum,
+  resetExpenseData,
 } = actions;
 export default reducer;
