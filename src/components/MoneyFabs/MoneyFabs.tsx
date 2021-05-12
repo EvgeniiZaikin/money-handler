@@ -1,26 +1,19 @@
 import { FC, MouseEvent, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import uniqid from 'uniqid';
 
-import { Box, Fab, Grid } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import DirectionsCarIcon from '@material-ui/icons/DirectionsCar';
-import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption';
-import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
-import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
-import PersonalVideoIcon from '@material-ui/icons/PersonalVideo';
+import { Box, ButtonBase, Grid, Typography } from '@material-ui/core';
 
 import { setTypeEditMoneyDialog, showEditMoneyDialog } from 'store/reducers/money';
 import { getCategories } from 'store/reducers/control';
+import { getCategories as getCategoriesList } from 'store/reducers/control/selectors';
 
 import { useStyles } from './MoneyFabs.styles';
 
 const MoneyFabs: FC = () => {
-  const { container, income } = useStyles();
+  const classes = useStyles();
+  const { container, image, focusVisible, imageSrc, imageBackdrop, imageButton, imageTitle, imageMarked } = classes;
+  const categories = useSelector(getCategoriesList);
 
   const dispatch = useDispatch();
 
@@ -37,78 +30,31 @@ const MoneyFabs: FC = () => {
     <Box className={container}>
       <Box textAlign="center" marginBottom="2rem">
         <Grid container>
-          <Grid item xs={4}>
-            <Fab data-fab="home" color="primary" onClick={handleAddMoneyControl}>
-              <HomeIcon />
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="food" color="primary" onClick={handleAddMoneyControl}>
-              <RestaurantIcon />
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="wife" color="primary" onClick={handleAddMoneyControl}>
-              <FavoriteIcon />
-            </Fab>
-          </Grid>
-        </Grid>
-      </Box>
-      <Box textAlign="center" marginBottom="2rem">
-        <Grid container>
-          <Grid item xs={4}>
-            <Fab data-fab="medicine" color="primary" onClick={handleAddMoneyControl}>
-              <EnhancedEncryptionIcon />
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="housekeeping" color="primary" onClick={handleAddMoneyControl}>
-              <PersonalVideoIcon />
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="child" color="primary" onClick={handleAddMoneyControl}>
-              <EmojiEmotionsIcon />
-            </Fab>
-          </Grid>
-        </Grid>
-      </Box>
-      <Box textAlign="center" marginBottom="2rem">
-        <Grid container>
-          <Grid item xs={4}>
-            <Fab data-fab="car" color="primary" onClick={handleAddMoneyControl}>
-              <DirectionsCarIcon />
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="pleasure" color="primary" onClick={handleAddMoneyControl}>
-              <SportsEsportsIcon />
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="credit" color="primary" onClick={handleAddMoneyControl}>
-              <CreditCardIcon />
-            </Fab>
-          </Grid>
-        </Grid>
-      </Box>
-      <Box textAlign="center" marginBottom="2rem">
-        <Grid container>
-          <Grid item xs={4}>
-            <Fab data-fab="gift" className={income} color="primary" onClick={handleAddMoneyControl}>
-              <CardGiftcardIcon />
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="other" color="primary" onClick={handleAddMoneyControl}>
-              ...
-            </Fab>
-          </Grid>
-          <Grid item xs={4}>
-            <Fab data-fab="salary" className={income} color="primary" onClick={handleAddMoneyControl}>
-              <AttachMoneyIcon />
-            </Fab>
-          </Grid>
+          {categories.map((item) => (
+            <Grid key={uniqid()} item xs={6} sm={4}>
+              <ButtonBase
+                focusRipple
+                className={image}
+                focusVisibleClassName={focusVisible}
+                onClick={handleAddMoneyControl}
+                data-fab={item.label}
+              >
+                <span
+                  className={imageSrc}
+                  style={{
+                    backgroundImage: `url(${item.image})`,
+                  }}
+                />
+                <span className={imageBackdrop} />
+                <span className={imageButton}>
+                  <Typography component="span" variant="subtitle1" color="inherit" className={imageTitle}>
+                    {item.label}
+                    <span className={imageMarked} />
+                  </Typography>
+                </span>
+              </ButtonBase>
+            </Grid>
+          ))}
         </Grid>
       </Box>
     </Box>

@@ -5,7 +5,6 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 
 import { getIsShowEditMoneyDialog, getTypeEditMoneyDialog } from 'store/reducers/money/selectors';
 import { hideEditMoneyDialog } from 'store/reducers/money';
-import { editMoneyTypes } from 'constants/editMoneyTypes';
 import { NumberFormatCustom } from './NumberFormat';
 
 const EditMoneyDialog: FC = () => {
@@ -17,7 +16,7 @@ const EditMoneyDialog: FC = () => {
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" fullWidth>
-      <DialogTitle id="form-dialog-title">{editMoneyTypes[type]?.label}</DialogTitle>
+      <DialogTitle id="form-dialog-title">{type}</DialogTitle>
       <DialogContent>
         <TextField
           autoFocus

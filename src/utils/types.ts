@@ -14,12 +14,13 @@ export type TFirebaseType = {
 };
 export type TFirebaseCategory = {
   id: string;
+  image: string;
   label: string;
-  type: TFirebaseDocumentReference;
+  // type: TFirebaseDocumentReference;
 };
 
 export type TCategory = {
   id: string;
+  image: string;
   label: string;
-  type: string;
 };
