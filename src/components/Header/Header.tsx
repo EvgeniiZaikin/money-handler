@@ -7,8 +7,7 @@ import { AppBar, Box, CircularProgress, IconButton, Toolbar, Typography } from '
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { logout } from 'store/reducers/user';
-import { getIsAuth } from 'store/reducers/user/selectors';
+import { logout } from 'store/reducers/auth';
 import { getSum } from 'store/reducers/header';
 import { getActualExpensesSum, getIncome, getLoadingStatus } from 'store/reducers/header/selectors';
 
@@ -22,7 +21,6 @@ const Header: FC = () => {
     dispatch(getSum());
   }, [dispatch]);
 
-  const userIsAuth: boolean = useSelector(getIsAuth);
   const expensesSum: number = useSelector(getActualExpensesSum);
   const income: number = useSelector(getIncome);
   const isLoading: boolean = useSelector(getLoadingStatus);
@@ -39,8 +37,6 @@ const Header: FC = () => {
     [attention]: procent > 80,
     [bad]: procent > 100,
   });
-
-  if (!userIsAuth) return null;
 
   return (
     <AppBar position="static" className={header}>

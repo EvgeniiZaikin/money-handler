@@ -5,9 +5,8 @@ import Router from 'next/router';
 
 import { Box, Fab, Grid } from '@material-ui/core';
 
-import { setAuthCode, resetAuthCode } from 'store/reducers/auth';
+import { setAuthCode, resetAuthCode, login } from 'store/reducers/auth';
 import { getAuthCode } from 'store/reducers/auth/selectors';
-import { login } from 'store/reducers/user';
 import { showSnackbar } from 'store/reducers/snackbar';
 import { TSnackbar } from 'store/reducers/snackbar/types';
 
@@ -23,6 +22,7 @@ const AuthFabs: FC = () => {
     if (authCode.length >= 4) {
       if (process.env.AUTH_CODE === authCode) {
         dispatch(login());
+        dispatch(resetAuthCode());
         Router.push('/control');
       } else {
         dispatch(resetAuthCode());

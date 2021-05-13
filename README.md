@@ -12,6 +12,6 @@
 4. ReduxToolkit
 5. ReduxSaga
 6. Graphql
-7. AWS Serverless
+7. Firebase
 8. Material-UI
 9. Next.js

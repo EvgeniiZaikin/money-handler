@@ -6,6 +6,7 @@ import { TReducersState } from 'utils/types';
 
 const initialState: IAuthState = {
   code: '',
+  userIsAuth: false,
 };
 
 const hydrate = createAction<TReducersState>(HYDRATE);
@@ -20,6 +21,12 @@ const authSlice = createSlice<IAuthState, TAuthReducers>({
     resetAuthCode: (state) => {
       state.code = '';
     },
+    login: (state) => {
+      state.userIsAuth = true;
+    },
+    logout: (state) => {
+      state.userIsAuth = false;
+    },
   },
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
@@ -33,5 +40,5 @@ const authSlice = createSlice<IAuthState, TAuthReducers>({
 
 const { actions, reducer } = authSlice;
 
-export const { setAuthCode, resetAuthCode } = actions;
+export const { setAuthCode, resetAuthCode, login, logout } = actions;
 export default reducer;

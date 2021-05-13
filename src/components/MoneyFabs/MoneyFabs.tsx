@@ -28,36 +28,34 @@ const MoneyFabs: FC = () => {
 
   return (
     <Box className={container}>
-      <Box textAlign="center" marginBottom="2rem">
-        <Grid container>
-          {categories.map((item) => (
-            <Grid key={uniqid()} item xs={6} sm={4}>
-              <ButtonBase
-                focusRipple
-                className={image}
-                focusVisibleClassName={focusVisible}
-                onClick={handleAddMoneyControl}
-                data-fab={item.label}
-                data-category={item.id}
-              >
-                <span
-                  className={imageSrc}
-                  style={{
-                    backgroundImage: `url(${item.image})`,
-                  }}
-                />
-                <span className={imageBackdrop} />
-                <span className={imageButton}>
-                  <Typography component="span" variant="subtitle1" color="inherit" className={imageTitle}>
-                    {item.label}
-                    <span className={imageMarked} />
-                  </Typography>
-                </span>
-              </ButtonBase>
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      <Grid container>
+        {categories.map((item) => (
+          <Grid key={uniqid()} item xs={6} sm={4}>
+            <ButtonBase
+              focusRipple
+              className={image}
+              focusVisibleClassName={focusVisible}
+              onClick={handleAddMoneyControl}
+              data-fab={item.label}
+              data-category={item.id}
+            >
+              <span
+                className={imageSrc}
+                style={{
+                  backgroundImage: `url(${item.image})`,
+                }}
+              />
+              <span className={imageBackdrop} />
+              <span className={imageButton}>
+                <Typography component="span" variant="subtitle1" color="inherit" className={imageTitle}>
+                  {item.label}
+                  <span className={imageMarked} />
+                </Typography>
+              </span>
+            </ButtonBase>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 };

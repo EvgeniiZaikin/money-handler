@@ -38,6 +38,7 @@ function* addExpenseSaga() {
   const category = yield select(getExpenseCategory);
 
   if (sum > 0) {
+    yield put(hideEditDialog());
     yield put(showBackdrop());
 
     const unsub = db.collection('expenses').withConverter(firebaseConverter<TFirebaseExpense>());
@@ -47,7 +48,6 @@ function* addExpenseSaga() {
       category: db.doc(`categories/${category}`),
     });
 
-    yield put(hideEditDialog());
     yield put(resetExpenseData());
     yield put(hideBackdrop());
 
