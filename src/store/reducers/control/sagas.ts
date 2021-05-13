@@ -8,6 +8,7 @@ import { TCategory, TFirebaseCategory, TFirebaseExpense } from 'utils/types';
 import { getExpenseCategory, getExpenseSum } from 'store/reducers/control/selectors';
 import { showSnackbar } from 'store/reducers/snackbar';
 import { TSnackbar } from 'store/reducers/snackbar/types';
+import { getSum } from 'store/reducers/header';
 
 function* getCategoriesSaga() {
   yield put(showBackdrop());
@@ -49,6 +50,8 @@ function* addExpenseSaga() {
     yield put(hideEditDialog());
     yield put(resetExpenseData());
     yield put(hideBackdrop());
+
+    yield put(getSum());
   } else {
     const message = sum < 0 ? 'Сумма не может быть отрицательной' : 'Сумма не может быть нулём';
     yield put(showSnackbar({ message, type: TSnackbar.ERROR }));
