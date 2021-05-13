@@ -11,6 +11,13 @@ const useStyles = makeStyles(
         alignItems: 'center',
         padding: '2rem 1rem',
       },
+      wrapper: {
+        width: '100%',
+        marginBottom: '2rem',
+      },
+      lastWrapper: {
+        marginBottom: '0',
+      },
     }),
   { name: 'StatisticList' }
 );

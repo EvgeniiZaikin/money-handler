@@ -1,5 +1,5 @@
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
+import { yellow, orange, common } from '@material-ui/core/colors';
 
 const useStyles = makeStyles(
   (theme: Theme) =>
@@ -21,8 +21,17 @@ const useStyles = makeStyles(
       expandOpen: {
         transform: 'rotate(180deg)',
       },
-      avatar: {
-        backgroundColor: red[500],
+      anxiety: {
+        backgroundColor: yellow[500],
+        color: common.black,
+      },
+      attention: {
+        backgroundColor: orange[500],
+        color: common.white,
+      },
+      bad: {
+        backgroundColor: common.black,
+        color: common.white,
       },
     }),
   { name: 'StatisticCard' }

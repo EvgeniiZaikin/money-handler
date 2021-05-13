@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 
 import {
@@ -6,6 +7,7 @@ import {
   Card,
   CardHeader,
   CardActions,
+  CardMedia,
   CardContent,
   Collapse,
   IconButton,
@@ -15,23 +17,35 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import { useStyles } from './StatisticCard.styles';
+import { getIncome } from 'store/reducers/header/selectors';
 
-const StatisticCard: FC = () => {
-  const classes = useStyles();
+import { useStyles } from './StatisticCard.styles';
+import { IStatisticCardProps } from './types';
+
+const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image }) => {
+  const { root, media, expand, expandOpen, anxiety, attention, bad } = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const income = useSelector(getIncome);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const percent = ((sum / income) * 100).toFixed(2);
+  const classes = clsx({
+    [anxiety]: +percent > 20,
+    [attention]: +percent > 50,
+    [bad]: +percent > 80,
+  });
+
   return (
-    <Card className={classes.root}>
+    <Card className={root}>
       <CardHeader
-        avatar={<Avatar className={classes.avatar}>R</Avatar>}
-        title="Расходы: коммунальные платежи"
-        subheader="34,000 ₽ / 18% от  дохода"
+        avatar={<Avatar className={classes}>{title[0]}</Avatar>}
+        title={title}
+        subheader={`${sum}₽ / ${percent}% от дохода`}
       />
+      <CardMedia className={media} image={image} title={title} />
       <CardActions disableSpacing>
         <IconButton>
           <FavoriteIcon />
@@ -40,8 +54,8 @@ const StatisticCard: FC = () => {
           <ShareIcon />
         </IconButton>
         <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
+          className={clsx(expand, {
+            [expandOpen]: expanded,
           })}
           onClick={handleExpandClick}
           aria-expanded={expanded}
