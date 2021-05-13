@@ -5,6 +5,7 @@ import control from 'store/reducers/control';
 import header from 'store/reducers/header';
 import footer from 'store/reducers/footer';
 import snackbar from 'store/reducers/snackbar';
+import statistic from 'store/reducers/statistic';
 
 export default combineReducers({
   auth,
@@ -13,4 +14,5 @@ export default combineReducers({
   header,
   footer,
   snackbar,
+  statistic,
 });
