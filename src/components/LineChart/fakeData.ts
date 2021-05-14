@@ -1,7 +1,7 @@
 const getRandomIntInclusive = (min, max) => {
   const mn = Math.ceil(min);
   const mx = Math.floor(max);
-  return Math.floor(Math.random() * (mx - mn + 1)) + mn; //Максимум и минимум включаются
+  return Math.floor(Math.random() * (mx - mn + 1)) + mn; // Максимум и минимум включаются
 };
 
 const generatefakeData = () => {

@@ -15,14 +15,13 @@ const LineChart: FC = () => {
 
   const Item = (props) => <Legend.Item className={item} {...props} />;
   const Root = (props) => <Legend.Root className={root} {...props} />;
-  const Label = ({ text, ...props }) => <ValueAxis.Label {...props} text={`${text}т₽`} />;
 
   return (
     <Box className={container}>
       <Typography className={title}>доходы и расходы по месяцам</Typography>
       <Chart data={chartData}>
         <ArgumentAxis tickFormat={format} />
-        <ValueAxis labelComponent={Label} />
+        <ValueAxis labelComponent={(props) => <ValueAxis.Label {...props} text={`${props.text}т₽`} />} />
         <Palette scheme={schemeSet2} />
         <LineSeries name="Доходы" valueField="income" argumentField="month" />
         <LineSeries name="Расходы" valueField="expenses" argumentField="month" />
