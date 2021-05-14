@@ -5,6 +5,7 @@ const useStyles = makeStyles(
   (theme: Theme) =>
     createStyles({
       root: {
+        margin: '0 auto',
         maxWidth: 345,
       },
       media: {
@@ -32,6 +33,9 @@ const useStyles = makeStyles(
       bad: {
         backgroundColor: common.black,
         color: common.white,
+      },
+      counter: {
+        marginLeft: '10px',
       },
     }),
   { name: 'StatisticCard' }

@@ -50,12 +50,14 @@ function* getStatisticDataSaga() {
       list[id] = {
         ...list[id],
         sum: prevData.sum + sum,
+        count: prevData.count + 1,
       };
     } else {
       list[id] = {
         label,
         sum,
         image,
+        count: 1,
       };
     }
   }
@@ -81,6 +83,7 @@ function* getStatisticDataSaga() {
         label,
         sum: 0,
         image,
+        count: 0,
       };
     }
   }

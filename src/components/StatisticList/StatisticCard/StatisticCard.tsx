@@ -1,6 +1,8 @@
 import { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
 import clsx from 'clsx';
+import plural from 'plural-ru';
+import uniqid from 'uniqid';
 
 import {
   Avatar,
@@ -13,8 +15,6 @@ import {
   IconButton,
   Typography,
 } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { getIncome } from 'store/reducers/header/selectors';
@@ -22,8 +22,8 @@ import { getIncome } from 'store/reducers/header/selectors';
 import { useStyles } from './StatisticCard.styles';
 import { IStatisticCardProps } from './types';
 
-const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image }) => {
-  const { root, media, expand, expandOpen, anxiety, attention, bad } = useStyles();
+const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image, count }) => {
+  const { root, media, expand, expandOpen, anxiety, attention, bad, counter } = useStyles();
   const [expanded, setExpanded] = useState(false);
   const income = useSelector(getIncome);
 
@@ -38,6 +38,8 @@ const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image }) => {
     [bad]: +percent > 80,
   });
 
+  const fakeOperations = new Array(count).fill(0);
+
   return (
     <Card className={root}>
       <CardHeader
@@ -47,12 +49,9 @@ const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image }) => {
       />
       <CardMedia className={media} image={image} title={title} />
       <CardActions disableSpacing>
-        <IconButton>
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton>
-          <ShareIcon />
-        </IconButton>
+        <Typography variant="caption" className={counter}>
+          {count} {plural(count, 'операция', 'операции', 'операций')}
+        </Typography>
         <IconButton
           className={clsx(expand, {
             [expandOpen]: expanded,
@@ -66,21 +65,11 @@ const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image }) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph align="right">
-            **.**.**** : *** ₽
-          </Typography>
-          <Typography paragraph align="right">
-            **.**.**** : *** ₽
-          </Typography>
-          <Typography paragraph align="right">
-            **.**.**** : *** ₽
-          </Typography>
-          <Typography paragraph align="right">
-            **.**.**** : *** ₽
-          </Typography>
-          <Typography paragraph align="right">
-            **.**.**** : *** ₽
-          </Typography>
+          {fakeOperations.map(() => (
+            <Typography key={uniqid()} paragraph align="right">
+              **.**.**** : *** ₽
+            </Typography>
+          ))}
         </CardContent>
       </Collapse>
     </Card>

@@ -4,6 +4,7 @@ export type TStatisticListItem = {
   label: string;
   sum: number;
   image: string;
+  count: number;
 };
 
 export interface IStatisticState {
