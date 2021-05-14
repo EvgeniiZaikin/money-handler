@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 
 import { LineChart } from 'components/LineChart';
+import { PieChart } from 'components/PieChart';
 import { setSelectedItemIndex } from 'store/reducers/footer';
 import { isBrowser } from 'utils/functions';
 import { TReducersState } from 'utils/types';
@@ -13,6 +14,7 @@ const DynamicPage: NextPage = () => {
       <Head>
         <title>Money Handler - динамика</title>
       </Head>
+      <PieChart />
       <LineChart />
     </>
   );
