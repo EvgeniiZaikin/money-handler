@@ -8,8 +8,8 @@ import { schemeSet2 } from 'd3-scale-chromatic';
 import { useStyles } from './PieChart.styles';
 
 const fakeData = [
-  { country: 'income', area: 12 },
-  { country: 'expenses', area: 7 },
+  { country: 'Доходы', area: 12 },
+  { country: 'Расходы', area: 7 },
 ];
 
 const PieChart: FC = () => {

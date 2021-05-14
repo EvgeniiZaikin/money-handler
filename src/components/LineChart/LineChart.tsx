@@ -1,14 +1,15 @@
 import { FC } from 'react';
 
-import { Box } from '@material-ui/core';
-import { Chart, ArgumentAxis, ValueAxis, LineSeries, Title, Legend } from '@devexpress/dx-react-chart-material-ui';
-import { Animation } from '@devexpress/dx-react-chart';
+import { Box, Typography } from '@material-ui/core';
+import { Chart, ArgumentAxis, ValueAxis, LineSeries, Legend } from '@devexpress/dx-react-chart-material-ui';
+import { Animation, Palette } from '@devexpress/dx-react-chart';
+import { schemeSet2 } from 'd3-scale-chromatic';
 
 import { confidence as chartData } from './fakeData';
 import { useStyles } from './LineChart.styles';
 
 const LineChart: FC = () => {
-  const { chart, container, root, item } = useStyles();
+  const { container, root, item, title } = useStyles();
 
   const format = () => (tick) => tick;
 
@@ -18,13 +19,14 @@ const LineChart: FC = () => {
 
   return (
     <Box className={container}>
-      <Chart data={chartData} className={chart}>
+      <Typography className={title}>доходы и расходы по месяцам</Typography>
+      <Chart data={chartData}>
         <ArgumentAxis tickFormat={format} />
         <ValueAxis labelComponent={Label} />
-        <LineSeries name="Расходы" valueField="income" argumentField="month" />
-        <LineSeries name="Доходы" valueField="expenses" argumentField="month" />
+        <Palette scheme={schemeSet2} />
+        <LineSeries name="Доходы" valueField="income" argumentField="month" />
+        <LineSeries name="Расходы" valueField="expenses" argumentField="month" />
         <Legend position="bottom" rootComponent={Root} itemComponent={Item} />
-        <Title.Text text="доходы и расходы" />
         <Animation />
       </Chart>
     </Box>

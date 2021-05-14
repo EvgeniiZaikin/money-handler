@@ -4,10 +4,7 @@ const useStyles = makeStyles(
   () =>
     createStyles({
       container: {
-        paddingTop: '2rem',
-      },
-      chart: {
-        paddingRight: '20px',
+        paddingRight: '10px',
       },
       root: {
         display: 'flex',
@@ -19,6 +16,11 @@ const useStyles = makeStyles(
           height: '11px',
           width: '11px',
         },
+      },
+      title: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: '36px',
       },
     }),
   { name: 'LineChart' }
