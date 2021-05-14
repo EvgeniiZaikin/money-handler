@@ -8,7 +8,10 @@ import { setExpenseSum } from 'store/reducers/control';
 
 const NumberFormatCustom: FC<InputBaseComponentProps> = ({ inputRef, onChange, name, ...other }) => {
   const dispatch = useDispatch();
-  const handleChange = (event: NumberFormatValues) => dispatch(setExpenseSum(event.floatValue));
+  const handleChange = (event: NumberFormatValues) => {
+    const { floatValue } = event;
+    floatValue && dispatch(setExpenseSum(floatValue));
+  };
 
   return (
     <NumberFormat

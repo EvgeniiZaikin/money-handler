@@ -32,8 +32,8 @@ const AuthFabs: FC = () => {
   }, [authCode, dispatch]);
 
   const handleSetCode = (event: MouseEvent<HTMLElement>) => {
-    const digit: string = event.currentTarget.textContent;
-    dispatch(setAuthCode(digit));
+    const digit: string | null = event.currentTarget.textContent;
+    digit && dispatch(setAuthCode(digit));
   };
 
   return (

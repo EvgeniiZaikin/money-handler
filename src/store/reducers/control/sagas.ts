@@ -35,8 +35,8 @@ function* getCategoriesSaga() {
 }
 
 function* addExpenseSaga() {
-  const sum = yield select(getExpenseSum);
-  const category = yield select(getExpenseCategory);
+  const sum: number = yield select(getExpenseSum);
+  const category: string = yield select(getExpenseCategory);
 
   if (sum > 0) {
     yield put(hideEditDialog());

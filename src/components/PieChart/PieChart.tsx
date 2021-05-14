@@ -15,8 +15,8 @@ const fakeData = [
 const PieChart: FC = () => {
   const { item, label, root, title } = useStyles();
 
-  const Root = (props) => <Legend.Root className={root} {...props} />;
-  const Item = (props) => <Legend.Item className={item} {...props} />;
+  const Root = (props: Legend.RootProps) => <Legend.Root className={root} {...props} />;
+  const Item = (props: Legend.ItemProps) => <Legend.Item className={item} {...props} />;
 
   return (
     <>

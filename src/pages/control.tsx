@@ -19,7 +19,7 @@ const ControlPage: NextPage = () => {
 };
 
 ControlPage.getInitialProps = async ({ res, store }: NextPageContext<TReducersState>) => {
-  if (!isBrowser() && !store.getState().auth.userIsAuth) {
+  if (!isBrowser() && !store.getState().auth.userIsAuth && res) {
     res.writeHead(302, { Location: '/' });
     res.end();
   }

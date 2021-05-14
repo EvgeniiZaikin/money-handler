@@ -21,8 +21,10 @@ const MoneyFabs: FC = () => {
   }, [dispatch]);
 
   const handleAddMoneyControl = (event: MouseEvent<HTMLElement>) => {
-    dispatch(setExpenseCategory(event.currentTarget.dataset.category));
-    dispatch(setExpenseType(event.currentTarget.dataset.fab));
+    const { category, fab } = event.currentTarget.dataset;
+
+    category && dispatch(setExpenseCategory(category));
+    fab && dispatch(setExpenseType(fab));
     dispatch(showEditDialog());
   };
 
