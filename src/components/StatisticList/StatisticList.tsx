@@ -34,7 +34,7 @@ const StatisticList: FC = () => {
 
             return (
               <Box className={classes} key={uniqid()} marginBottom="2rem">
-                <StatisticCard title={item.label} sum={item.sum} image={item.image} count={item.count} />
+                <StatisticCard title={item.label} sum={item.sum} image={item.image} expenses={item.expenses} />
               </Box>
             );
           })}

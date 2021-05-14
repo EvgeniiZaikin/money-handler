@@ -22,8 +22,8 @@ import { getIncome } from 'store/reducers/header/selectors';
 import { useStyles } from './StatisticCard.styles';
 import { IStatisticCardProps } from './types';
 
-const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image, count }) => {
-  const { root, media, expand, expandOpen, anxiety, attention, bad, counter } = useStyles();
+const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image, expenses }) => {
+  const { root, media, expand, expandOpen, anxiety, attention, bad, counter, expenseSum, actions } = useStyles();
   const [expanded, setExpanded] = useState(false);
   const income = useSelector(getIncome);
 
@@ -38,8 +38,6 @@ const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image, count }) =>
     [bad]: +percent > 80,
   });
 
-  const fakeOperations = new Array(count).fill(0);
-
   return (
     <Card className={root}>
       <CardHeader
@@ -48,26 +46,36 @@ const StatisticCard: FC<IStatisticCardProps> = ({ title, sum, image, count }) =>
         subheader={`${sum}₽ / ${percent}% от дохода`}
       />
       <CardMedia className={media} image={image} title={title} />
-      <CardActions disableSpacing>
+      <CardActions disableSpacing className={actions}>
         <Typography variant="caption" className={counter}>
-          {count} {plural(count, 'операция', 'операции', 'операций')}
+          {expenses.length} {plural(expenses.length, 'операция', 'операции', 'операций')}
         </Typography>
-        <IconButton
-          className={clsx(expand, {
-            [expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
+        {expenses.length ? (
+          <IconButton
+            className={clsx(expand, {
+              [expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+        ) : null}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {fakeOperations.map(() => (
-            <Typography key={uniqid()} paragraph align="right">
-              **.**.**** : *** ₽
+          {expenses.map((expense) => (
+            <Typography key={uniqid()} component="div" align="right">
+              <Typography variant="caption">
+                {expense.date.toLocaleString('ru', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+                :
+              </Typography>
+              <Typography className={expenseSum}>{expense.sum}₽</Typography>
             </Typography>
           ))}
         </CardContent>

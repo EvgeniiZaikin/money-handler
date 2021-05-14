@@ -1,10 +1,11 @@
 import { CaseReducer, PayloadAction } from '@reduxjs/toolkit';
+import { TExpense } from 'utils/types';
 
 export type TStatisticListItem = {
   label: string;
   sum: number;
   image: string;
-  count: number;
+  expenses: TExpense[];
 };
 
 export interface IStatisticState {

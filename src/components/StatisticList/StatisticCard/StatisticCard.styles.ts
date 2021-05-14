@@ -37,6 +37,12 @@ const useStyles = makeStyles(
       counter: {
         marginLeft: '10px',
       },
+      expenseSum: {
+        fontWeight: 'bold',
+      },
+      actions: {
+        height: '50px',
+      },
     }),
   { name: 'StatisticCard' }
 );

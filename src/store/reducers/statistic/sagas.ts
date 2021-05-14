@@ -37,7 +37,7 @@ function* getStatisticDataSaga() {
   yield put(setExplanation('Обработка данных по расходам'));
 
   for (const doc of expenses.docs) {
-    const { sum, category } = doc.data();
+    const { sum, category, datetime } = doc.data();
 
     const cat: TFirebaseDocument<TFirebaseCategory> = yield category
       .withConverter(firebaseConverter<TFirebaseCategory>())
@@ -50,14 +50,14 @@ function* getStatisticDataSaga() {
       list[id] = {
         ...list[id],
         sum: prevData.sum + sum,
-        count: prevData.count + 1,
       };
+      list[id].expenses.push({ sum, date: datetime.toDate() });
     } else {
       list[id] = {
         label,
         sum,
         image,
-        count: 1,
+        expenses: [{ sum, date: datetime.toDate() }],
       };
     }
   }
@@ -83,7 +83,7 @@ function* getStatisticDataSaga() {
         label,
         sum: 0,
         image,
-        count: 0,
+        expenses: [],
       };
     }
   }
@@ -92,6 +92,9 @@ function* getStatisticDataSaga() {
   yield put(setExplanation('Подготовка конечного результата'));
 
   const data: TStatisticListItem[] = Object.values(list).sort((first, second) => second.sum - first.sum);
+  data.forEach((item) => {
+    item.expenses = item.expenses.reverse();
+  });
 
   yield put(setProgress(90));
   yield put(setExplanation('Сохранение конечного результата'));
