@@ -1,4 +1,5 @@
 import { all, put, select, takeEvery } from 'redux-saga/effects';
+import firebase from 'firebase';
 
 import { db } from 'database/firebase';
 import { addExpense, getCategories, hideEditDialog, resetExpenseData, setCategories } from 'store/reducers/control';
@@ -44,7 +45,7 @@ function* addExpenseSaga() {
     const unsub = db.collection('expenses').withConverter(firebaseConverter<TFirebaseExpense>());
     yield unsub.add({
       sum,
-      datetime: new Date(),
+      datetime: firebase.firestore.Timestamp.fromDate(new Date()),
       category: db.doc(`categories/${category}`),
     });
 
