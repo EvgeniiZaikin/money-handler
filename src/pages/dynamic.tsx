@@ -1,21 +1,41 @@
+import { useEffect } from 'react';
 import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
 import { LineChart } from 'components/LineChart';
 import { PieChart } from 'components/PieChart';
 import { setSelectedItemIndex } from 'store/reducers/footer';
 import { isBrowser } from 'utils/functions';
 import { TReducersState } from 'utils/types';
+import { getDynamicData } from 'store/reducers/dynamic';
+import { CircularProgressWithLabel } from 'components/CircularProgressWithLabel';
+import { getIsLoading, getProgressValue, getExplanation, getPieChartData } from 'store/reducers/dynamic/selectors';
 
 const DynamicPage: NextPage = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
+  const progressValue = useSelector(getProgressValue);
+  const explanation = useSelector(getExplanation);
+  const pieChartData = useSelector(getPieChartData);
+
+  useEffect(() => {
+    dispatch(getDynamicData());
+  }, [dispatch]);
+
   return (
     <>
       <Head>
         <title>Money Handler - динамика</title>
       </Head>
-      <PieChart />
-      <LineChart />
+      {isLoading ? (
+        <CircularProgressWithLabel value={progressValue} label={explanation} />
+      ) : (
+        <>
+          <PieChart data={pieChartData} />
+          <LineChart />
+        </>
+      )}
     </>
   );
 };

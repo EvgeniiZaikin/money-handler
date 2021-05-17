@@ -5,14 +5,10 @@ import { Chart, Legend, PieSeries } from '@devexpress/dx-react-chart-material-ui
 import { Animation, Palette } from '@devexpress/dx-react-chart';
 import { schemeSet2 } from 'd3-scale-chromatic';
 
+import { IPieChartProps } from './types';
 import { useStyles } from './PieChart.styles';
 
-const fakeData = [
-  { country: 'Доходы', area: 12 },
-  { country: 'Расходы', area: 7 },
-];
-
-const PieChart: FC = () => {
+const PieChart: FC<IPieChartProps> = ({ data }) => {
   const { item, label, root, title } = useStyles();
 
   const Root = (props: Legend.RootProps) => <Legend.Root className={root} {...props} />;
@@ -29,7 +25,7 @@ const PieChart: FC = () => {
       <Typography className={label} paragraph variant="caption">
         расходы составляют 23,5% от доходов
       </Typography>
-      <Chart data={fakeData} height={415}>
+      <Chart data={data} height={415}>
         <Palette scheme={schemeSet2} />
         <PieSeries valueField="area" argumentField="country" />
         <Legend position="bottom" rootComponent={Root} itemComponent={Item} />
