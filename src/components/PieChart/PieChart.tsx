@@ -8,7 +8,7 @@ import { schemeSet2 } from 'd3-scale-chromatic';
 import { IPieChartProps } from './types';
 import { useStyles } from './PieChart.styles';
 
-const PieChart: FC<IPieChartProps> = ({ data }) => {
+const PieChart: FC<IPieChartProps> = ({ data, expensesPercent }) => {
   const { item, label, root, title } = useStyles();
 
   const Root = (props: Legend.RootProps) => <Legend.Root className={root} {...props} />;
@@ -23,7 +23,7 @@ const PieChart: FC<IPieChartProps> = ({ data }) => {
         <br />в 2021 году
       </Typography>
       <Typography className={label} paragraph variant="caption">
-        расходы составляют 23,5% от доходов
+        расходы составляют {expensesPercent}% от доходов
       </Typography>
       <Chart data={data} height={415}>
         <Palette scheme={schemeSet2} />

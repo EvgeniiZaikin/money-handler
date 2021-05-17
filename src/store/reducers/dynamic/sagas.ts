@@ -1,7 +1,14 @@
 import { all, put, takeEvery } from 'redux-saga/effects';
 
 import { db } from 'database/firebase';
-import { getDynamicData, setExplanation, setLoading, setPieChartData, setProgressValue } from 'store/reducers/dynamic';
+import {
+  getDynamicData,
+  setExpensesPercent,
+  setExplanation,
+  setLoading,
+  setPieChartData,
+  setProgressValue,
+} from 'store/reducers/dynamic';
 import { firebaseConverter } from 'utils/functions';
 import { TFirebaseDocument, TFirebaseExpense, TFirebaseSettingsIncome, TFirebaseSnapshot } from 'utils/types';
 
@@ -48,11 +55,14 @@ function* getDynamicSaga() {
   yield put(setProgressValue(95));
   yield put(setExplanation('Формирование данных для диаграммы соотношения расходов и доходов'));
 
+  const expensesPercent = ((expensesSum / (incomeSum * month)) * 100).toFixed(2);
+
   const pieChartData = [
-    { country: 'Доходы', area: incomeSum * month },
-    { country: 'Расходы', area: expensesSum },
+    { country: 'Доходы', area: 100 - Number(expensesPercent) },
+    { country: 'Расходы', area: Number(expensesPercent) },
   ];
 
+  yield put(setExpensesPercent(expensesPercent));
   yield put(setPieChartData(pieChartData));
 
   yield put(setLoading(false));

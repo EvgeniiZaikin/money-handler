@@ -7,6 +7,7 @@ export type TPieChartBlock = {
 
 export interface IDynamicState {
   explanation: string;
+  expensesPercent: string;
   loading: boolean;
   pieChartData: TPieChartBlock[];
   progressValue: number;
@@ -15,6 +16,7 @@ export interface IDynamicState {
 export type TDynamicReducers = {
   getDynamicData: CaseReducer<IDynamicState>;
   setExplanation: CaseReducer<IDynamicState, PayloadAction<string>>;
+  setExpensesPercent: CaseReducer<IDynamicState, PayloadAction<string>>;
   setLoading: CaseReducer<IDynamicState, PayloadAction<boolean>>;
   setPieChartData: CaseReducer<IDynamicState, PayloadAction<TPieChartBlock[]>>;
   setProgressValue: CaseReducer<IDynamicState, PayloadAction<number>>;

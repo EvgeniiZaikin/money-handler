@@ -10,7 +10,13 @@ import { isBrowser } from 'utils/functions';
 import { TReducersState } from 'utils/types';
 import { getDynamicData } from 'store/reducers/dynamic';
 import { CircularProgressWithLabel } from 'components/CircularProgressWithLabel';
-import { getIsLoading, getProgressValue, getExplanation, getPieChartData } from 'store/reducers/dynamic/selectors';
+import {
+  getIsLoading,
+  getProgressValue,
+  getExplanation,
+  getPieChartData,
+  getExpensesPercent,
+} from 'store/reducers/dynamic/selectors';
 
 const DynamicPage: NextPage = () => {
   const dispatch = useDispatch();
@@ -18,6 +24,7 @@ const DynamicPage: NextPage = () => {
   const progressValue = useSelector(getProgressValue);
   const explanation = useSelector(getExplanation);
   const pieChartData = useSelector(getPieChartData);
+  const expensesPercent = useSelector(getExpensesPercent);
 
   useEffect(() => {
     dispatch(getDynamicData());
@@ -32,7 +39,7 @@ const DynamicPage: NextPage = () => {
         <CircularProgressWithLabel value={progressValue} label={explanation} />
       ) : (
         <>
-          <PieChart data={pieChartData} />
+          <PieChart data={pieChartData} expensesPercent={expensesPercent} />
           <LineChart />
         </>
       )}
