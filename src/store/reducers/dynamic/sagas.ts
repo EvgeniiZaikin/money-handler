@@ -5,12 +5,14 @@ import {
   getDynamicData,
   setExpensesPercent,
   setExplanation,
+  setLineChartData,
   setLoading,
   setPieChartData,
   setProgressValue,
 } from 'store/reducers/dynamic';
 import { firebaseConverter } from 'utils/functions';
 import { TFirebaseDocument, TFirebaseExpense, TFirebaseSettingsIncome, TFirebaseSnapshot } from 'utils/types';
+import { TLineChartBlock } from 'store/reducers/dynamic/types';
 
 function* getDynamicSaga() {
   yield put(setLoading(true));
@@ -33,7 +35,7 @@ function* getDynamicSaga() {
     .withConverter(firebaseConverter<TFirebaseExpense>())
     .get();
 
-  yield put(setProgressValue(55));
+  yield put(setProgressValue(45));
   yield put(setExplanation('Обработка данных расходов'));
 
   const expensesSum = expenses.docs.reduce((value, item) => {
@@ -41,7 +43,7 @@ function* getDynamicSaga() {
     return value + sum;
   }, 0);
 
-  yield put(setProgressValue(85));
+  yield put(setProgressValue(70));
   yield put(setExplanation('Получение данных о доходе'));
 
   const income: TFirebaseDocument<TFirebaseSettingsIncome> = yield db
@@ -52,7 +54,7 @@ function* getDynamicSaga() {
 
   const { sum: incomeSum } = income.data();
 
-  yield put(setProgressValue(95));
+  yield put(setProgressValue(80));
   yield put(setExplanation('Формирование данных для диаграммы соотношения расходов и доходов'));
 
   const expensesPercent = ((expensesSum / (incomeSum * month)) * 100).toFixed(2);
@@ -64,6 +66,26 @@ function* getDynamicSaga() {
 
   yield put(setExpensesPercent(expensesPercent));
   yield put(setPieChartData(pieChartData));
+
+  yield put(setProgressValue(90));
+  yield put(setExplanation('Формирование данных для линейной диаграммы'));
+
+  const lineChartData: TLineChartBlock[] = [];
+  for (let i = 1; i <= 12; i++) {
+    lineChartData.push({
+      month: i,
+      income: incomeSum,
+      expenses: 0,
+    });
+  }
+
+  expenses.docs.forEach((item) => {
+    const { sum, datetime } = item.data();
+    const index = datetime.toDate().getMonth();
+    lineChartData[index].expenses += sum;
+  });
+
+  yield put(setLineChartData(lineChartData));
 
   yield put(setLoading(false));
 }

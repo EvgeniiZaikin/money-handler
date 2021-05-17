@@ -5,10 +5,10 @@ import { Chart, ArgumentAxis, ValueAxis, LineSeries, Legend } from '@devexpress/
 import { Animation, Palette } from '@devexpress/dx-react-chart';
 import { schemeSet2 } from 'd3-scale-chromatic';
 
-import { confidence as chartData } from './fakeData';
+import { ILineChartProps } from './types';
 import { useStyles } from './LineChart.styles';
 
-const LineChart: FC = () => {
+const LineChart: FC<ILineChartProps> = ({ data }) => {
   const { container, root, item, title } = useStyles();
 
   const format = () => (tick: string) => tick;
@@ -19,7 +19,7 @@ const LineChart: FC = () => {
   return (
     <Box className={container}>
       <Typography className={title}>доходы и расходы по месяцам</Typography>
-      <Chart data={chartData}>
+      <Chart data={data}>
         <ArgumentAxis tickFormat={format} />
         <ValueAxis labelComponent={(props) => <ValueAxis.Label {...props} text={`${props.text}т₽`} />} />
         <Palette scheme={schemeSet2} />

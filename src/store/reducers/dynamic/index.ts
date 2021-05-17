@@ -7,6 +7,7 @@ import { TReducersState } from 'utils/types';
 const initialState: IDynamicState = {
   explanation: '',
   expensesPercent: '0',
+  lineChartData: [],
   loading: false,
   pieChartData: [],
   progressValue: 0,
@@ -24,6 +25,9 @@ const dynamicSlice = createSlice<IDynamicState, TDynamicReducers>({
     },
     setExpensesPercent: (state, { payload }) => {
       state.expensesPercent = payload;
+    },
+    setLineChartData: (state, { payload }) => {
+      state.lineChartData = payload;
     },
     setLoading: (state, { payload }) => {
       state.loading = payload;
@@ -51,6 +55,7 @@ export const {
   getDynamicData,
   setExplanation,
   setExpensesPercent,
+  setLineChartData,
   setLoading,
   setPieChartData,
   setProgressValue,

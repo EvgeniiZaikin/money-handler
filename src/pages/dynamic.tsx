@@ -16,6 +16,7 @@ import {
   getExplanation,
   getPieChartData,
   getExpensesPercent,
+  getLineChartData,
 } from 'store/reducers/dynamic/selectors';
 
 const DynamicPage: NextPage = () => {
@@ -25,6 +26,7 @@ const DynamicPage: NextPage = () => {
   const explanation = useSelector(getExplanation);
   const pieChartData = useSelector(getPieChartData);
   const expensesPercent = useSelector(getExpensesPercent);
+  const lineChartData = useSelector(getLineChartData);
 
   useEffect(() => {
     dispatch(getDynamicData());
@@ -40,7 +42,7 @@ const DynamicPage: NextPage = () => {
       ) : (
         <>
           <PieChart data={pieChartData} expensesPercent={expensesPercent} />
-          <LineChart />
+          <LineChart data={lineChartData} />
         </>
       )}
     </>
