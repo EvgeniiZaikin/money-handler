@@ -2,8 +2,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "esnext",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "sourceMap": false,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "noImplicitUseStrict": true,
     "removeComments": true,
