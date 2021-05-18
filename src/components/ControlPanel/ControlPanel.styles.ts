@@ -82,7 +82,7 @@ const useStyles = makeStyles(
         transition: transitions.create('opacity'),
       },
     }),
-  { name: 'AuthFabs' }
+  { name: 'ControlPanel' }
 );
 
 export { useStyles };

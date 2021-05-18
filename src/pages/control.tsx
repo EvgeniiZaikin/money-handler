@@ -2,7 +2,7 @@ import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import { connect } from 'react-redux';
 
-import { MoneyFabs } from 'components/MoneyFabs';
+import { ControlPanel } from 'components/ControlPanel';
 import { TReducersState } from 'utils/types';
 import { setSelectedItemIndex } from 'store/reducers/footer';
 import { isBrowser } from 'utils/functions';
@@ -13,7 +13,7 @@ const ControlPage: NextPage = () => {
       <Head>
         <title>Money Handler - контроль денежных средств</title>
       </Head>
-      <MoneyFabs />
+      <ControlPanel />
     </>
   );
 };

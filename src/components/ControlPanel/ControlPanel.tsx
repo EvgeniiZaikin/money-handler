@@ -7,9 +7,9 @@ import { Box, ButtonBase, Grid, Typography } from '@material-ui/core';
 import { getCategories, setExpenseCategory, setExpenseType, showEditDialog } from 'store/reducers/control';
 import { getCategories as getCategoriesList } from 'store/reducers/control/selectors';
 
-import { useStyles } from './MoneyFabs.styles';
+import { useStyles } from './ControlPanel.styles';
 
-const MoneyFabs: FC = () => {
+const ControlPanel: FC = () => {
   const classes = useStyles();
   const { container, image, focusVisible, imageSrc, imageBackdrop, imageButton, imageTitle, imageMarked } = classes;
   const categories = useSelector(getCategoriesList);
@@ -62,4 +62,4 @@ const MoneyFabs: FC = () => {
   );
 };
 
-export { MoneyFabs };
+export { ControlPanel };

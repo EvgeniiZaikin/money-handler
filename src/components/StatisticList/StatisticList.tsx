@@ -6,10 +6,15 @@ import clsx from 'clsx';
 import { Box } from '@material-ui/core';
 
 import { getStatisticData } from 'store/reducers/statistic';
-import { getIsShowingProgress, getStatisticList } from 'store/reducers/statistic/selectors';
+import {
+  getExplanation,
+  getIsShowingProgress,
+  getLoadingProgress,
+  getStatisticList,
+} from 'store/reducers/statistic/selectors';
+import { CircularProgressWithLabel } from 'components/CircularProgressWithLabel';
 
 import { StatisticCard } from './StatisticCard';
-import { CircularProgressWithLabel } from './CircularProgressWithLabel';
 import { useStyles } from './StatisticList.styles';
 
 const StatisticList: FC = () => {
@@ -18,17 +23,19 @@ const StatisticList: FC = () => {
 
   const showProgress = useSelector(getIsShowingProgress);
   const list = useSelector(getStatisticList);
+  const value: number = useSelector(getLoadingProgress);
+  const label: string = useSelector(getExplanation);
 
   useEffect(() => {
     dispatch(getStatisticData());
   }, [dispatch]);
 
   return (
-    <Box className={container}>
+    <>
       {showProgress ? (
-        <CircularProgressWithLabel />
+        <CircularProgressWithLabel value={value} label={label} />
       ) : (
-        <>
+        <Box className={container}>
           {list.map((item, index) => {
             const classes = clsx(wrapper, { [lastWrapper]: index === list.length - 1 });
 
@@ -38,9 +45,9 @@ const StatisticList: FC = () => {
               </Box>
             );
           })}
-        </>
+        </Box>
       )}
-    </Box>
+    </>
   );
 };
 
