@@ -9,7 +9,8 @@
     "start": "cross-env NODE_ENV=production next start -p 5956",
     "prod": "cross-env NODE_ENV=production npm run format & npm run lint & npm run build & npm run start",
     "format": "prettier --write **/*.{ts,tsx,scss,scss.d.ts,css,json}",
-    "lint": "eslint **/*.{ts,tsx}"
+    "lint": "eslint **/*.{ts,tsx}",
+    "test": "jest --rootDir src"
   },
   "repository": {
     "type": "git",
@@ -49,13 +50,17 @@
   },
   "devDependencies": {
     "@types/d3-scale-chromatic": "^2.0.0",
+    "@types/enzyme": "^3.10.8",
+    "@types/jest": "^26.0.23",
     "@types/react": "^17.0.3",
     "@types/react-redux": "^7.1.16",
     "@types/redux": "^3.6.0",
     "@types/uniqid": "^5.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "babel-eslint": "^10.1.0",
+    "enzyme": "^3.11.0",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.2.0",
@@ -66,7 +71,9 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^26.6.3",
     "prettier": "^2.2.1",
+    "ts-jest": "^26.5.6",
     "typescript": "^4.2.4"
   }
 }
