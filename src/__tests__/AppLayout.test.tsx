@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { shallow } from 'enzyme';
 
 import { AppLayout } from 'components/AppLayout/AppLayout';
@@ -6,8 +6,9 @@ import { AppLayout } from 'components/AppLayout/AppLayout';
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
   useDispatch: () => jest.fn(),
-  Provider: ({ children }) => children,
+  Provider: ({ children }: PropsWithChildren<{}>) => children,
 }));
+// eslint-disable-next-line import/first
 import * as reactRedux from 'react-redux';
 
 const generateComponent = () =>
