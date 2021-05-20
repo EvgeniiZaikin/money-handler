@@ -7,7 +7,7 @@ import { getExpenseType, getIsShowingDialog } from 'store/reducers/control/selec
 import { addExpense, hideEditDialog } from 'store/reducers/control';
 import { NumberFormatCustom } from './NumberFormat';
 
-const EditMoneyDialog: FC = () => {
+const AddExpenseDialog: FC = () => {
   const open: boolean = useSelector(getIsShowingDialog);
   const type: string = useSelector(getExpenseType);
 
@@ -41,4 +41,4 @@ const EditMoneyDialog: FC = () => {
   );
 };
 
-export { EditMoneyDialog };
+export { AddExpenseDialog };

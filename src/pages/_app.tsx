@@ -7,7 +7,7 @@ import { CssBaseline } from '@material-ui/core';
 import { wrapper } from 'store';
 import { AppLayout } from 'components/AppLayout';
 import { AddIncomeDialog } from 'components/AddIncomeDialog';
-import { EditMoneyDialog } from 'components/EditMoneyDialog';
+import { AddExpenseDialog } from 'components/AddExpenseDialog';
 import { Backdrop } from 'components/Backdrop';
 import { Snackbar } from 'components/Snackbar';
 
@@ -37,7 +37,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <Component {...pageProps} />
       </AppLayout>
       <AddIncomeDialog />
-      <EditMoneyDialog />
+      <AddExpenseDialog />
       <Backdrop />
       <Snackbar />
     </>
