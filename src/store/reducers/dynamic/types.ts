@@ -7,7 +7,7 @@ export type TPieChartBlock = {
 
 export type TLineChartBlock = {
   month: number;
-  income: number;
+  incomes: number;
   expenses: number;
 };
 

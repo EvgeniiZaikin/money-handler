@@ -23,7 +23,7 @@ const LineChart: FC<ILineChartProps> = ({ data }) => {
         <ArgumentAxis tickFormat={format} />
         <ValueAxis labelComponent={(props) => <ValueAxis.Label {...props} text={`${props.text}т₽`} />} />
         <Palette scheme={schemeSet2} />
-        <LineSeries name="Доходы" valueField="income" argumentField="month" />
+        <LineSeries name="Доходы" valueField="incomes" argumentField="month" />
         <LineSeries name="Расходы" valueField="expenses" argumentField="month" />
         <Legend position="bottom" rootComponent={Root} itemComponent={Item} />
         <Animation />

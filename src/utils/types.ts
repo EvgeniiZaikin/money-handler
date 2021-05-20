@@ -27,6 +27,10 @@ export type TFirebaseExpense = {
 export type TFirebaseSettingsIncome = {
   sum: number;
 };
+export type TFirebaseIncome = {
+  sum: number;
+  datetime: TFirebaseDate;
+};
 
 export type TCategory = {
   id: string;

@@ -2,8 +2,14 @@ import { all, put, takeEvery } from 'redux-saga/effects';
 
 import { db } from 'database/firebase';
 import { firebaseConverter } from 'utils/functions';
-import { TFirebaseDocument, TFirebaseExpense, TFirebaseSettingsIncome, TFirebaseSnapshot } from 'utils/types';
-import { getSum, setIncome, setLoading, setSum } from 'store/reducers/header';
+import {
+  TFirebaseDocument,
+  TFirebaseExpense,
+  TFirebaseIncome,
+  TFirebaseSettingsIncome,
+  TFirebaseSnapshot,
+} from 'utils/types';
+import { getSum, setIncome, setIsSalary, setLoading, setSum } from 'store/reducers/header';
 
 function* getSumSaga() {
   yield put(setLoading(true));
@@ -26,12 +32,29 @@ function* getSumSaga() {
 
   yield put(setSum(sum));
 
-  const income: TFirebaseDocument<TFirebaseSettingsIncome> = yield db
-    .collection('settings')
-    .withConverter(firebaseConverter<TFirebaseSettingsIncome>())
-    .doc('income')
+  const incomes: TFirebaseSnapshot<TFirebaseIncome> = yield db
+    .collection('incomes')
+    .where('datetime', '>=', startDate)
+    .where('datetime', '<', endDate)
+    .withConverter(firebaseConverter<TFirebaseIncome>())
     .get();
-  yield put(setIncome(income.data().sum));
+
+  if (incomes.docs.length) {
+    const revenue: number = incomes.docs.reduce(
+      (result: number, item: TFirebaseDocument<TFirebaseIncome>) => result + item.data().sum,
+      0
+    );
+    yield put(setIncome(revenue));
+    yield put(setIsSalary(false));
+  } else {
+    const salary: TFirebaseDocument<TFirebaseSettingsIncome> = yield db
+      .collection('settings')
+      .withConverter(firebaseConverter<TFirebaseSettingsIncome>())
+      .doc('income')
+      .get();
+    yield put(setIncome(salary.data().sum));
+    yield put(setIsSalary(true));
+  }
 
   yield put(setLoading(false));
 }

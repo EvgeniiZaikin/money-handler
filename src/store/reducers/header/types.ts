@@ -4,6 +4,7 @@ export interface IHeaderState {
   sum: number;
   income: number;
   loading: boolean;
+  isSalary: boolean;
 }
 
 export type THeaderReducers = {
@@ -11,4 +12,5 @@ export type THeaderReducers = {
   setSum: CaseReducer<IHeaderState, PayloadAction<number>>;
   setIncome: CaseReducer<IHeaderState, PayloadAction<number>>;
   setLoading: CaseReducer<IHeaderState, PayloadAction<boolean>>;
+  setIsSalary: CaseReducer<IHeaderState, PayloadAction<boolean>>;
 };

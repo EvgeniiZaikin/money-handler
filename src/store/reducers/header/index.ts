@@ -8,6 +8,7 @@ const initialState: IHeaderState = {
   sum: 0,
   income: 0,
   loading: false,
+  isSalary: false,
 };
 
 const hydrate = createAction<TReducersState>(HYDRATE);
@@ -26,6 +27,9 @@ const headerSlice = createSlice<IHeaderState, THeaderReducers>({
     setLoading: (state, { payload }) => {
       state.loading = payload;
     },
+    setIsSalary: (state, { payload }) => {
+      state.isSalary = payload;
+    },
   },
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
@@ -39,6 +43,6 @@ const headerSlice = createSlice<IHeaderState, THeaderReducers>({
 
 const { actions, reducer } = headerSlice;
 
-export const { getSum, setSum, setIncome, setLoading } = actions;
+export const { getSum, setSum, setIncome, setLoading, setIsSalary } = actions;
 
 export default reducer;

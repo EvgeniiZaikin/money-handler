@@ -11,7 +11,7 @@ import {
   setProgressValue,
 } from 'store/reducers/dynamic';
 import { firebaseConverter } from 'utils/functions';
-import { TFirebaseDocument, TFirebaseExpense, TFirebaseSettingsIncome, TFirebaseSnapshot } from 'utils/types';
+import { TFirebaseExpense, TFirebaseIncome, TFirebaseSnapshot } from 'utils/types';
 import { TLineChartBlock } from 'store/reducers/dynamic/types';
 
 function* getDynamicSaga() {
@@ -21,7 +21,6 @@ function* getDynamicSaga() {
   yield put(setExplanation('Формирование временного диапазона'));
 
   const now = new Date();
-  const month = now.getMonth() + 1;
   const startDate = new Date(now.getFullYear(), 0, 1);
   const endDate = new Date(now.getFullYear() + 1, 0, 1);
 
@@ -46,22 +45,27 @@ function* getDynamicSaga() {
   yield put(setProgressValue(70));
   yield put(setExplanation('Получение данных о доходе'));
 
-  const income: TFirebaseDocument<TFirebaseSettingsIncome> = yield db
-    .collection('settings')
-    .withConverter(firebaseConverter<TFirebaseSettingsIncome>())
-    .doc('income')
+  const incomes: TFirebaseSnapshot<TFirebaseIncome> = yield db
+    .collection('incomes')
+    .where('datetime', '>=', startDate)
+    .where('datetime', '<', endDate)
+    .withConverter(firebaseConverter<TFirebaseIncome>())
     .get();
 
-  const { sum: incomeSum } = income.data();
+  const allIncomesSum = incomes.docs.reduce((value, item) => {
+    const { sum } = item.data();
+    return value + sum;
+  }, 0);
 
   yield put(setProgressValue(80));
   yield put(setExplanation('Формирование данных для диаграммы соотношения расходов и доходов'));
 
-  const expensesPercent = ((expensesSum / (incomeSum * month)) * 100).toFixed(2);
-
+  const expensesPercent = ((expensesSum / allIncomesSum) * 100).toFixed(2);
+  const incomesArea = allIncomesSum / (expensesSum + allIncomesSum);
+  const expensesArea = expensesSum / (expensesSum + allIncomesSum);
   const pieChartData = [
-    { country: 'Доходы', area: 100 - Number(expensesPercent) },
-    { country: 'Расходы', area: Number(expensesPercent) },
+    { country: 'Доходы', area: incomesArea },
+    { country: 'Расходы', area: expensesArea },
   ];
 
   yield put(setExpensesPercent(expensesPercent));
@@ -74,7 +78,7 @@ function* getDynamicSaga() {
   for (let i = 1; i <= 12; i++) {
     lineChartData.push({
       month: i,
-      income: incomeSum,
+      incomes: 0,
       expenses: 0,
     });
   }
@@ -83,6 +87,12 @@ function* getDynamicSaga() {
     const { sum, datetime } = item.data();
     const index = datetime.toDate().getMonth();
     lineChartData[index].expenses += sum;
+  });
+
+  incomes.docs.forEach((item) => {
+    const { sum, datetime } = item.data();
+    const index = datetime.toDate().getMonth();
+    lineChartData[index].incomes += sum;
   });
 
   yield put(setLineChartData(lineChartData));
