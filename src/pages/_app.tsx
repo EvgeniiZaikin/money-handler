@@ -8,6 +8,7 @@ import { wrapper } from 'store';
 import { AppLayout } from 'components/AppLayout';
 import { AddIncomeDialog } from 'components/AddIncomeDialog';
 import { AddExpenseDialog } from 'components/AddExpenseDialog';
+import { UpdateSalaryDialog } from 'components/UpdateSalaryDialog';
 import { Backdrop } from 'components/Backdrop';
 import { Snackbar } from 'components/Snackbar';
 
@@ -38,6 +39,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </AppLayout>
       <AddIncomeDialog />
       <AddExpenseDialog />
+      <UpdateSalaryDialog />
       <Backdrop />
       <Snackbar />
     </>

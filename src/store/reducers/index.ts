@@ -6,6 +6,7 @@ import dynamic from 'store/reducers/dynamic';
 import header from 'store/reducers/header';
 import footer from 'store/reducers/footer';
 import incomes from 'store/reducers/incomes';
+import settings from 'store/reducers/settings';
 import snackbar from 'store/reducers/snackbar';
 import statistic from 'store/reducers/statistic';
 
@@ -17,6 +18,7 @@ export default combineReducers({
   header,
   footer,
   incomes,
+  settings,
   snackbar,
   statistic,
 });

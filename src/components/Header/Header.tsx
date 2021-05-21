@@ -12,6 +12,7 @@ import { logout } from 'store/reducers/auth';
 import { getSum } from 'store/reducers/header';
 import { getActualExpensesSum, getIncome, getIsSalary, getLoadingStatus } from 'store/reducers/header/selectors';
 import { showEditDialog } from 'store/reducers/incomes';
+import { showEditDialog as showUpdateSalaryDialog } from 'store/reducers/settings';
 
 import { useStyles } from './Header.styles';
 
@@ -35,6 +36,10 @@ const Header: FC = () => {
 
   const handleAddIncome = () => {
     dispatch(showEditDialog());
+  };
+
+  const handleOpenSettings = () => {
+    dispatch(showUpdateSalaryDialog());
   };
 
   const procent: number = (expensesSum / income) * 100;
@@ -65,7 +70,7 @@ const Header: FC = () => {
         <IconButton onClick={handleAddIncome} color="inherit">
           <AddIcon />
         </IconButton>
-        <IconButton onClick={() => {}} color="inherit">
+        <IconButton onClick={handleOpenSettings} color="inherit">
           <SettingsIcon />
         </IconButton>
       </Toolbar>
