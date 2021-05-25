@@ -13,6 +13,7 @@ import { getSum } from 'store/reducers/header';
 import { getActualExpensesSum, getIncome, getIsSalary, getLoadingStatus } from 'store/reducers/header/selectors';
 import { showEditDialog } from 'store/reducers/incomes';
 import { showEditDialog as showUpdateSalaryDialog } from 'store/reducers/settings';
+import { ROUTES } from 'constants/pages';
 
 import { useStyles } from './Header.styles';
 
@@ -31,7 +32,7 @@ const Header: FC = () => {
 
   const handleExit = () => {
     dispatch(logout());
-    Router.push('/');
+    Router.push(ROUTES.ROOT);
   };
 
   const handleAddIncome = () => {

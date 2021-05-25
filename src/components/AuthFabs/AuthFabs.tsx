@@ -9,6 +9,7 @@ import { setAuthCode, resetAuthCode, login } from 'store/reducers/auth';
 import { getAuthCode } from 'store/reducers/auth/selectors';
 import { showSnackbar } from 'store/reducers/snackbar';
 import { TSnackbar } from 'store/reducers/snackbar/types';
+import { ROUTES } from 'constants/pages';
 
 import { useStyles } from './AuthFabs.styles';
 
@@ -23,7 +24,7 @@ const AuthFabs: FC = () => {
       if (process.env.AUTH_CODE === authCode) {
         dispatch(login());
         dispatch(resetAuthCode());
-        Router.push('/control');
+        Router.push(ROUTES.EXPENSES);
       } else {
         dispatch(resetAuthCode());
         dispatch(showSnackbar({ message: 'Код введён не верно', type: TSnackbar.ERROR }));

@@ -18,6 +18,7 @@ import {
   getExpensesPercent,
   getLineChartData,
 } from 'store/reducers/dynamic/selectors';
+import { ROUTES } from 'constants/pages';
 
 const DynamicPage: NextPage = () => {
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const DynamicPage: NextPage = () => {
 
 DynamicPage.getInitialProps = async ({ res, store }: NextPageContext<TReducersState>) => {
   if (!isBrowser() && !store.getState().auth.userIsAuth && res) {
-    res.writeHead(302, { Location: '/' });
+    res.writeHead(302, { Location: ROUTES.ROOT });
     res.end();
   }
 
