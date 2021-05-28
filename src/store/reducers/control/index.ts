@@ -10,6 +10,9 @@ const initialState: IControlState = {
   expenseType: '',
   expenseSum: 0,
   expenseCategory: '',
+  loading: false,
+  progressValue: 0,
+  explanation: '',
 };
 
 const hydrate = createAction<TReducersState>(HYDRATE);
@@ -43,6 +46,20 @@ const controlSlice = createSlice<IControlState, TControlReducers>({
       state.expenseSum = 0;
       state.expenseCategory = '';
     },
+    setLoading: (state, { payload }) => {
+      state.loading = payload;
+    },
+    setProgressValue: (state, { payload }) => {
+      state.progressValue = payload;
+    },
+    setExplanation: (state, { payload }) => {
+      state.explanation = payload;
+    },
+    resetLoading: (state) => {
+      state.loading = false;
+      state.progressValue = 0;
+      state.explanation = '';
+    },
   },
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
@@ -66,5 +83,9 @@ export const {
   setExpenseType,
   setExpenseSum,
   resetExpenseData,
+  setLoading,
+  setExplanation,
+  resetLoading,
+  setProgressValue,
 } = actions;
 export default reducer;

@@ -2,7 +2,17 @@ import { all, put, select, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase';
 
 import { db } from 'database/firebase';
-import { addExpense, getCategories, hideEditDialog, resetExpenseData, setCategories } from 'store/reducers/control';
+import {
+  addExpense,
+  getCategories,
+  hideEditDialog,
+  resetExpenseData,
+  setCategories,
+  setLoading,
+  resetLoading,
+  setProgressValue,
+  setExplanation,
+} from 'store/reducers/control';
 import { showBackdrop, hideBackdrop } from 'store/reducers/backdrop';
 import { firebaseConverter } from 'utils/functions';
 import { TCategory, TFirebaseCategory, TFirebaseExpense } from 'utils/types';
@@ -12,26 +22,22 @@ import { TSnackbar } from 'store/reducers/snackbar/types';
 import { getSum } from 'store/reducers/header';
 
 function* getCategoriesSaga() {
-  yield put(showBackdrop());
+  yield put(setLoading(true));
   const result: TCategory[] = [];
+
+  yield put(setProgressValue(10));
+  yield put(setExplanation('Получение данных о категориях расходов'));
 
   const unsub = db.collection('categories').withConverter(firebaseConverter<TFirebaseCategory>());
   const { docs } = yield unsub.get();
   for (const doc of docs) {
     const { id } = doc;
     const { image, label } = doc.data();
-    // const { image, label, type } = doc.data();
-
-    // const categoryType: TFirebaseDocument<TFirebaseType> = yield type
-    //   .withConverter(firebaseConverter<TFirebaseType>())
-    //   .get();
-
-    // result.push({ id, image, label, type: categoryType.data().label });
     result.push({ id, label, image });
   }
 
   yield put(setCategories(result));
-  yield put(hideBackdrop());
+  yield put(resetLoading());
 }
 
 function* addExpenseSaga() {

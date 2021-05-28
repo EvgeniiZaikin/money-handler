@@ -8,6 +8,9 @@ export interface IControlState {
   expenseType: string;
   expenseSum: number;
   expenseCategory: string;
+  loading: boolean;
+  progressValue: number;
+  explanation: string;
 }
 
 export type TControlReducers = {
@@ -20,4 +23,8 @@ export type TControlReducers = {
   setExpenseSum: CaseReducer<IControlState, PayloadAction<number>>;
   setExpenseCategory: CaseReducer<IControlState, PayloadAction<string>>;
   resetExpenseData: CaseReducer<IControlState>;
+  setLoading: CaseReducer<IControlState, PayloadAction<boolean>>;
+  setProgressValue: CaseReducer<IControlState, PayloadAction<number>>;
+  setExplanation: CaseReducer<IControlState, PayloadAction<string>>;
+  resetLoading: CaseReducer<IControlState>;
 };
