@@ -6,7 +6,11 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head />
+        <Head>
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/react-logo.png" />
+          <meta name="theme-color" content="#fff" />
+        </Head>
         <body>
           <Main />
           <NextScript />
