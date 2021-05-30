@@ -11,7 +11,13 @@ import {
   setProgressValue,
 } from 'store/reducers/dynamic';
 import { firebaseConverter } from 'utils/functions';
-import { TFirebaseExpense, TFirebaseIncome, TFirebaseSnapshot } from 'utils/types';
+import {
+  TFirebaseDocument,
+  TFirebaseExpense,
+  TFirebaseIncome,
+  TFirebaseSettingsIncome,
+  TFirebaseSnapshot,
+} from 'utils/types';
 import { TLineChartBlock } from 'store/reducers/dynamic/types';
 
 function* getDynamicSaga() {
@@ -52,7 +58,7 @@ function* getDynamicSaga() {
     .withConverter(firebaseConverter<TFirebaseIncome>())
     .get();
 
-  const allIncomesSum = incomes.docs.reduce((value, item) => {
+  let allIncomesSum = incomes.docs.reduce((value, item) => {
     const { sum } = item.data();
     return value + sum;
   }, 0);
@@ -60,9 +66,28 @@ function* getDynamicSaga() {
   yield put(setProgressValue(80));
   yield put(setExplanation('Формирование данных для диаграммы соотношения расходов и доходов'));
 
-  const expensesPercent = ((expensesSum / allIncomesSum) * 100).toFixed(2);
+  if (allIncomesSum === 0) {
+    const salary: TFirebaseDocument<TFirebaseSettingsIncome> = yield db
+      .collection('settings')
+      .withConverter(firebaseConverter<TFirebaseSettingsIncome>())
+      .doc('income')
+      .get();
+
+    allIncomesSum = salary.data().sum;
+  }
+
+  let expensesPercent: string = '0';
+  if (expensesSum > 0) {
+    expensesPercent = ((expensesSum / allIncomesSum) * 100).toFixed(2);
+  }
+
   const incomesArea = allIncomesSum / (expensesSum + allIncomesSum);
-  const expensesArea = expensesSum / (expensesSum + allIncomesSum);
+
+  let expensesArea = 0;
+  if (expensesSum > 0) {
+    expensesArea = expensesSum / (expensesSum + allIncomesSum);
+  }
+
   const pieChartData = [
     { country: 'Доходы', area: incomesArea },
     { country: 'Расходы', area: expensesArea },
@@ -73,6 +98,8 @@ function* getDynamicSaga() {
 
   yield put(setProgressValue(90));
   yield put(setExplanation('Формирование данных для линейной диаграммы'));
+
+  const currentMonthIndex = new Date().getMonth();
 
   const lineChartData: TLineChartBlock[] = [];
   for (let i = 1; i <= 12; i++) {
@@ -94,6 +121,10 @@ function* getDynamicSaga() {
     const index = datetime.toDate().getMonth();
     lineChartData[index].incomes += sum;
   });
+
+  if (lineChartData[currentMonthIndex].incomes === 0) {
+    lineChartData[currentMonthIndex].incomes = allIncomesSum;
+  }
 
   yield put(setLineChartData(lineChartData));
 
