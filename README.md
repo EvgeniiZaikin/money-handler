@@ -21,3 +21,4 @@
 7. Material-UI
 8. Next.js
 9. Jest
+10. PWA

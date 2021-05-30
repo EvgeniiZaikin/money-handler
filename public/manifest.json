@@ -1,6 +1,6 @@
 {
-  "name": "PWA App",
-  "short_name": "App",
+  "name": "Money Handler PWA App",
+  "short_name": "Money Handler App",
   "icons": [
     {
       "src": "/react-logo.png",
