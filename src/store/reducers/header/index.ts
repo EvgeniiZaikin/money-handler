@@ -34,8 +34,8 @@ const headerSlice = createSlice<IHeaderState, THeaderReducers>({
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
-        ...state,
         ...action.payload.header,
+        ...state,
       };
     });
   },

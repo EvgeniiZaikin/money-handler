@@ -21,8 +21,8 @@ const footerSlice = createSlice<IFooterState, TFooterReducers>({
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
-        ...state,
         ...action.payload.footer,
+        ...state,
       };
     });
   },

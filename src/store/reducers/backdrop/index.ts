@@ -24,9 +24,8 @@ const backdropSlice = createSlice<IBackdropState, TBackdropReducers>({
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
-        ...state,
         ...action.payload.backdrop,
-        show: state.show,
+        ...state,
       };
     });
   },

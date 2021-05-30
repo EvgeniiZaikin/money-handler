@@ -28,8 +28,8 @@ const snackbarSlice = createSlice<ISnackbarState, TSnackbarReducers>({
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
-        ...state,
         ...action.payload.snackbar,
+        ...state,
       };
     });
   },

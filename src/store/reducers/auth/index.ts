@@ -31,8 +31,8 @@ const authSlice = createSlice<IAuthState, TAuthReducers>({
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
-        ...state,
         ...action.payload.auth,
+        ...state,
       };
     });
   },

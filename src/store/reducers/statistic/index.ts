@@ -34,9 +34,8 @@ const statisticSlice = createSlice<IStatisticState, TStatisticReducers>({
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
-        ...state,
         ...action.payload.statistic,
-        showProgress: state.showProgress,
+        ...state,
       };
     });
   },

@@ -64,8 +64,8 @@ const controlSlice = createSlice<IControlState, TControlReducers>({
   extraReducers(builder) {
     builder.addCase(hydrate, (state, action) => {
       return {
-        ...state,
         ...action.payload.control,
+        ...state,
       };
     });
   },
