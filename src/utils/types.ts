@@ -17,7 +17,7 @@ export type TFirebaseCategory = {
   id: string;
   image: string;
   label: string;
-  // type: TFirebaseDocumentReference;
+  popularity: number;
 };
 export type TFirebaseExpense = {
   sum: number;
@@ -36,6 +36,7 @@ export type TCategory = {
   id: string;
   image: string;
   label: string;
+  popularity: number;
 };
 
 export type TExpense = {
