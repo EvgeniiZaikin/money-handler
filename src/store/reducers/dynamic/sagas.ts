@@ -122,6 +122,19 @@ function* getDynamicSaga() {
     lineChartData[index].incomes += sum;
   });
 
+  // if no incomes into month need use base salary
+  for (let i = 0; i < lineChartData.length; i++) {
+    if (lineChartData[i].expenses > 0 && lineChartData[i].incomes === 0) {
+      const salary: TFirebaseDocument<TFirebaseSettingsIncome> = yield db
+        .collection('settings')
+        .withConverter(firebaseConverter<TFirebaseSettingsIncome>())
+        .doc('income')
+        .get();
+
+      lineChartData[i].incomes = salary.data().sum;
+    }
+  }
+
   if (lineChartData[currentMonthIndex].incomes === 0) {
     lineChartData[currentMonthIndex].incomes = allIncomesSum;
   }
